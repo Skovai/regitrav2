@@ -1,7 +1,11 @@
-    <?php
-/**
- * Created by PhpStorm.
- * User: Wapeo
- * Date: 10/28/2018
- * Time: 9:50 PM
- */
+@extends('design')
+
+@section('title', 'Pagrindinis')
+@section('content')
+    <h1>Transporto priemonės langas</h1>
+    <ul>
+        <li><a href="{{action('AccountController@clientDataEditingPage')}}">Sugeneruotas laiškas</a></li>
+        <li><a href="{{action('AccountController@messagePage')}}">Valstybinių nr. registracijos langas</a></li>
+    </ul>
+
+@endsection

@@ -13,11 +13,92 @@ class AccountController extends Controller
      */
     public function index()
     {
-
         return view('login');
     }
+    public function mainPage()
+    {
+        return view('main');
+    }
+    public function adminFunctionPage()
+    {
+        return view('adminFunction');
+    }
+    public function registrationExamInfoPage()
+    {
+        return view('registrationExamInfo');
+    }
+    public function registrationToExamPage()
+    {
+        return view('registrationToExam');
+    }
+    public function vehicleInfoPage()
+    {
+        return view('vehicleInfo');
+    }
+    public function accountsPage()
+    {
+        return view('accounts');
+    }
+    public function driversLicensePage()
+    {
+        return view('driversLicense');
+    }
+    public function employeePage()
+    {
+        return view('employee');
+    }
 
-    /**
+    public function employeeDataEditingPage()
+    {
+        return view('employeeDataEditing');
+    }
+    public function employeeTimetablePage()
+    {
+        return view('employeeTimetable');
+    }
+    public function timetableMessagePage()
+    {
+        return view('timetableMessage');
+    }
+    public function inventoryPage()
+    {
+        return view('inventory');
+    }
+    public function messagePage()
+    {
+        return view('message');
+    }
+    public function clientPage()
+    {
+        return view('client');
+    }
+    public function examTimetablePage()
+    {
+        return view('examTimetable');
+    }
+    public function vehiclePage()
+    {
+        return view('vehicle');
+    }
+    public function instructorPage()
+    {
+        return view('instructor');
+    }
+    public function routePage()
+    {
+        return view('route');
+    }
+    public function trafficIncidentPage()
+    {
+        return view('trafficIncident');
+    }
+    public function licensePlateRegistrationPage()
+    {
+        return view('licensePlateRegistration');
+    }
+
+
+        /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response

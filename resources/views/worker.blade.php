@@ -1,7 +1,7 @@
-<?php
-/**
- * Created by PhpStorm.
- * User: Wapeo
- * Date: 10/28/2018
- * Time: 9:48 PM
- */
+@extends('design')
+
+@section('title', 'Pagrindinis')
+@section('content')
+    <h1></h1>
+
+@endsection

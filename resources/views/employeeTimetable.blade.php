@@ -1,7 +1,10 @@
-<?php
-/**
- * Created by PhpStorm.
- * User: Wapeo
- * Date: 10/28/2018
- * Time: 10:29 PM
- */
+@extends('design')
+
+@section('title', 'Pagrindinis')
+@section('content')
+    <h1>Darbuotojo tvarkaraščio langas</h1>
+    <ul>
+        <li><a href="{{action('AccountController@timetableMessagePage')}}">Tvarkaraščio pranešimas</a></li>
+    </ul>
+
+@endsection
