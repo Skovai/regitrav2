@@ -96,6 +96,10 @@ class AccountController extends Controller
     {
         return view('licensePlateRegistration');
     }
+    public function clientDataEditingPage()
+    {
+        return view('clientDataEditing');
+    }
 
 
         /**

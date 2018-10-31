@@ -32,6 +32,7 @@ Route::get('/route', 'AccountController@routePage');
 Route::get('/trafficIncident', 'AccountController@trafficIncidentPage');
 Route::get('/accountsCreate', 'AccountController@accountsPage');
 Route::get('/licensePlateRegistration', 'AccountController@licensePlateRegistrationPage');
+Route::get('/clientEditing', 'AccountController@clientDataEditingPage');
 
 // LVL 4
 Route::get('/employeeDataEditing', 'AccountController@employeeDataEditingPage');
