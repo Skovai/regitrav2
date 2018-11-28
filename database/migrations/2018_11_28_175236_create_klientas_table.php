@@ -15,7 +15,6 @@ class CreateKlientasTable extends Migration
     {
         Schema::create('klientas', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('miestas');
             $table->string('vardas');
             $table->string('pavarde');
             $table->string('asmens_kodas');
@@ -25,7 +24,7 @@ class CreateKlientasTable extends Migration
             $table->date('gimimo_data');
             $table->string('e_pastas');
             $table->unsignedInteger('FK_Darbuotojas')->index();
-            $table->foreign('FK_Darbuotojas')->references('id')->on('darbuotojas');
+            $table->foreign('FK_Darbuotojas')->references('id')->on('Darbuotojas');
             $table->timestamps();
         });
     }
