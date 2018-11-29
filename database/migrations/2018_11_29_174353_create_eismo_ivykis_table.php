@@ -19,7 +19,7 @@ class CreateEismoIvykisTable extends Migration
             $table->time('laikas');
             $table->string('vieta');
             $table->string('aprasas');
-            $table->bool('pareigunai');
+            $table->boolean('pareigunai');
             $table->timestamps();
         });
     }

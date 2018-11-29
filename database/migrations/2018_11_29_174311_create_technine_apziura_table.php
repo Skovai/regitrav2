@@ -19,7 +19,7 @@ class CreateTechnineApziuraTable extends Migration
             $table->date('atlikimoData');
             $table->date('galiojimoData');
             $table->float('kaina');
-            $table->bool('arPraeita');
+            $table->boolean('arPraeita');
             $table->unsignedInteger('FK_TransportoPriemone')->index();
             $table->foreign('FK_TransportoPriemone')->references('id')->on('transporto_priemone');
             $table->timestamps();

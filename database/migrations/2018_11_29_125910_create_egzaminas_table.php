@@ -21,7 +21,7 @@ class CreateEgzaminasTable extends Migration
             $table->float('kaina');
             $table->string('vieta');
             $table->string('tipas');
-            $table->bool('arIslaikyta');
+            $table->boolean('arIslaikyta');
             $table->unsignedInteger('FK_Marsrutas')->index();
             $table->unsignedInteger('FK_Klientas')->index();
             $table->foreign('FK_Marsrutas')->references('id')->on('marsrutas');
