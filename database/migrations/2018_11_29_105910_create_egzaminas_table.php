@@ -24,8 +24,8 @@ class CreateEgzaminasTable extends Migration
             $table->bool('arIslaikyta');
             $table->unsignedInteger('FK_Marsrutas')->index();
             $table->unsignedInteger('FK_Klientas')->index();
-            $table->foreign('FK_Marsrutas')->references('id')->on('Marsrutas');
-             $table->foreign('FK_Klientas')->references('id')->on('Klientas');
+            $table->foreign('FK_Marsrutas')->references('id')->on('marsrutas');
+             $table->foreign('FK_Klientas')->references('id')->on('klientas');
             $table->timestamps();
         });
     }

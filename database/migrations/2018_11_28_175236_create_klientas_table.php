@@ -24,7 +24,7 @@ class CreateKlientasTable extends Migration
             $table->date('gimimo_data');
             $table->string('e_pastas');
             $table->unsignedInteger('FK_Darbuotojas')->index();
-            $table->foreign('FK_Darbuotojas')->references('id')->on('Darbuotojas');
+            $table->foreign('FK_Darbuotojas')->references('id')->on('darbuotojas');
             $table->timestamps();
         });
     }

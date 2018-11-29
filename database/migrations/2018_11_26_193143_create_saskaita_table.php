@@ -33,6 +33,6 @@ class CreateSaskaitaTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('saskaitas');
+        Schema::dropIfExists('saskaita');
     }
 }
