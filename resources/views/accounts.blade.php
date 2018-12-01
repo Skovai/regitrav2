@@ -10,11 +10,12 @@
     ?>
         <h1>Sąskaitų langas</h1>
 
+
         <div class="panel panel-default">
                 <div class="panel-heading">Pildyti sąskaita</div>
                 <div class="panel-body">
                         <form method="post" action="{{action('AccountController@accountsPageCreate')}}">
-
+                                @csrf
                         <label for="suma">Suma(Eu)</label>
                         <input id="suma"type="number" name="suma">
 
@@ -40,12 +41,36 @@
     <div class="panel panel-default">
             <div class="panel-heading">Saskaitu peržiūra</div>
             <div class="panel-body">
-                    @for($i = 1; $i <= count($saskaitaTable); $i++)
-                        <table>
-                                <h1 class="text-center">{{DB::table('saskaita')->where('id', $i)->select('name')->pluck('name')->first()}}</h1>
+                            <table class="table">
+                                    <thead>
+                                    <tr>
+                                            <th>Suma</th>
+                                            <th>Paskirtis</th>
+                                            <th>Terminas</th>
+                                            <th>Atšaukti</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    @foreach ($saskaita as $key)
+                                    <tr>
+                                            <td>{{ $key->suma }}</td>
+                                            <td>{{ $key->paskirtis }}</td>
+                                            <td>{{ $key->terminas }}</td>
+                                            <form method="post" action="{{action('AccountController@accountsPageDelete')}}">
+                                                    @csrf
+                                                    <td>
+                                                            <input type="hidden" value="{{ $key->id }}" name="id">
+                                                            <button name="difficulty" class="btn btn-danger"
+                                                                    value="3" type="submit">
+                                                                    X
+                                                            </button>
+                                                    </td>
+                                            </form>
+                                    </tr>
+                                    @endforeach
+                                    </tbody>
+                            </table>
 
-                        </table>
-                    @endfor
             </div>
     </div>
 

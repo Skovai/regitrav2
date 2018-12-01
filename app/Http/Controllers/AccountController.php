@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+use App\Saskaita;
+use Illuminate\Support\Facades\Schema;
+
 
 class AccountController extends Controller
 {
@@ -37,10 +40,13 @@ class AccountController extends Controller
     }
     public function accountsPage()
     {
-        return view('accounts');
+
+        $saskaita =  Saskaita::all();
+        return view('accounts',compact('saskaita'));
     }
     public function accountsPageCreate(Request $request)
     {
+        $saskaita =  Saskaita::all();
         $suma = $request->input('suma');
         $paskirtis = $request->input('paskirtis');
         $isdavimo_data = $request->input('isdavimo_data');
@@ -49,7 +55,15 @@ class AccountController extends Controller
         DB::table('saskaita')->insert(
             ['suma' => $suma, 'paskirtis' => $paskirtis, 'isdavimo_data' => $isdavimo_data, 'isdavimo_laikas' => $isdavimo_laikas, 'terminas' => $terminas, 'darbuotojas_id' => 1]
         );
-        return view('accounts');
+        return view('accounts',compact('saskaita'));
+    }
+    public function accountsPageDelete(Request $request)
+    {
+        $saskaita =  Saskaita::all();
+        $id = $request->input('id');
+        DB::table('saskaita')->where('id', '=', $id)->delete();
+
+        return view('accounts',compact('saskaita'));
     }
     public function driversLicensePage()
     {

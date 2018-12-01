@@ -32,6 +32,7 @@ Route::get('/route', 'AccountController@routePage');
 Route::get('/trafficIncident', 'AccountController@trafficIncidentPage');
 Route::get('/accountsCreate', 'AccountController@accountsPage');
 Route::post('/accountsCreate/success', 'AccountController@accountsPageCreate');
+Route::post('/accountsCreate/deleted', 'AccountController@accountsPageDelete');
 Route::get('/licensePlateRegistration', 'AccountController@licensePlateRegistrationPage');
 Route::get('/clientEditing', 'AccountController@clientDataEditingPage');
 
