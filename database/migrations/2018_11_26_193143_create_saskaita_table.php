@@ -18,7 +18,7 @@ class CreateSaskaitaTable extends Migration
             $table->float('suma');
             $table->string('paskirtis');
             $table->date('isdavimo_data');
-            $table->dateTime('isdavimo_laikas');
+            $table->time('isdavimo_laikas');
             $table->date('terminas');
             $table->unsignedInteger('darbuotojas_id')->index();
             $table->foreign('darbuotojas_id')->references('id')->on('darbuotojas');

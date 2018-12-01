@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
 class AccountController extends Controller
@@ -37,6 +37,18 @@ class AccountController extends Controller
     }
     public function accountsPage()
     {
+        return view('accounts');
+    }
+    public function accountsPageCreate(Request $request)
+    {
+        $suma = $request->input('suma');
+        $paskirtis = $request->input('paskirtis');
+        $isdavimo_data = $request->input('isdavimo_data');
+        $isdavimo_laikas = $request->input('isdavimo_laikas');
+        $terminas = $request->input('terminas');
+        DB::table('saskaita')->insert(
+            ['suma' => $suma, 'paskirtis' => $paskirtis, 'isdavimo_data' => $isdavimo_data, 'isdavimo_laikas' => $isdavimo_laikas, 'terminas' => $terminas, 'darbuotojas_id' => 1]
+        );
         return view('accounts');
     }
     public function driversLicensePage()

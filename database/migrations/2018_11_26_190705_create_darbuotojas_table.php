@@ -26,8 +26,8 @@ class CreateDarbuotojasTable extends Migration
             $table->string('adresas');
             $table->string('telefonas');
             $table->string('e_pastas');
-            $table->integer('asmens_kodas');
-            $table->integer('gimimo_data');
+            $table->biginteger('asmens_kodas');
+            $table->date('gimimo_data');
             $table->timestamps();
         });
     }
