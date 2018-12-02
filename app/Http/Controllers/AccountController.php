@@ -4,8 +4,9 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Saskaita;
-use Illuminate\Support\Facades\Schema;
+use App\TransportoPriemone;
 
+use Illuminate\Support\Facades\Schema;
 
 class AccountController extends Controller
 {
@@ -40,7 +41,6 @@ class AccountController extends Controller
     }
     public function accountsPage()
     {
-
         $saskaita =  Saskaita::all();
         return view('accounts',compact('saskaita'));
     }
@@ -65,6 +65,7 @@ class AccountController extends Controller
 
         return view('accounts',compact('saskaita'));
     }
+    
     public function driversLicensePage()
     {
         return view('driversLicense');
@@ -73,7 +74,6 @@ class AccountController extends Controller
     {
         return view('employee');
     }
-
     public function employeeDataEditingPage()
     {
         return view('employeeDataEditing');
@@ -102,10 +102,6 @@ class AccountController extends Controller
     {
         return view('examTimetable');
     }
-    public function vehiclePage()
-    {
-        return view('vehicle');
-    }
     public function instructorPage()
     {
         return view('instructor');
@@ -118,10 +114,6 @@ class AccountController extends Controller
     {
         return view('trafficIncident');
     }
-    public function licensePlateRegistrationPage()
-    {
-        return view('licensePlateRegistration');
-    }
     public function clientDataEditingPage()
     {
         return view('clientDataEditing');
@@ -132,8 +124,6 @@ class AccountController extends Controller
 
         ]);
     }
-
-
 
     public function update(Request $request, $id)
     {
