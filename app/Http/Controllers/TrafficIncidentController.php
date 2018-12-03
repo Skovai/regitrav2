@@ -15,6 +15,11 @@ class TrafficIncidentController extends Controller
     {
         //
     }
+    
+    public function trafficIncidentPage(Request $request)
+    {
+        return view('trafficIncident');
+    }
 
     /**
      * Show the form for creating a new resource.

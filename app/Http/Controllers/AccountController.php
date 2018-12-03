@@ -106,10 +106,6 @@ class AccountController extends Controller
     {
         return view('route');
     }
-    public function trafficIncidentPage()
-    {
-        return view('trafficIncident');
-    }
     public function clientDataEditingPage()
     {
         return view('clientDataEditing');

@@ -2,7 +2,7 @@
 
 @section('title', 'Pagrindinis')
 @section('content')
-    <h1>Transporto priemonės duomenys</h1>
+    <h1>Techninės apžiūros istorija</h1>
     
     <div class="panel panel-default">
                 <div class="panel-heading">Transporto priemonių sąrašas</div>
@@ -10,27 +10,19 @@
                             <table class="table">
                                     <thead>
                                     <tr>
-                                            <th>Valstybinis nr.</th>
-                                            <th>VIN</th>
-                                            <th>Markė</th>
-                                            <th>Modelis</th>
-                                            <th>Savininkas</th>
-                                            <th>Spalva</th>
-                                            <th>Kategorija</th>
-                                            <th>Galingumas (bhp)</th>
+                                            <th>Atlikimo data</th>
+                                            <th>Galioja iki</th>
+                                            <th>Kaina</th>
+                                            <th>Ar praeita</th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    @foreach ($transportoPriemone as $key)
+                                    @foreach ($technineApziura as $key)
                                     <tr>
-                                            <td>{{ $key->valstybinisNr }}</td>
-                                            <td>{{ $key->VIN }}</td>
-                                            <td>{{ $key->marke }}</td>
-                                            <td>{{ $key->modelis }}</td>
-                                            <td>{{ $key->FK_Klientas }}</td>
-                                            <td>{{ $key->spalva }}</td>
-                                            <td>{{ $key->kategorija }}</td>
-                                            <td>{{ $key->galingumas }}</td>
+                                            <td>{{ $key->atlikimoData }}</td>
+                                            <td>{{ $key->galiojimoData }}</td>
+                                            <td>{{ $key->kaina }}</td>
+                                            <td>{{ $key->arPraeita }}</td>
                                            
 <!--                                            <form method="post" action="{{action('AccountController@accountsPageDelete')}}">
                                                     @csrf
@@ -48,8 +40,6 @@
                             </table>
             </div>
     </div>
-    <li><a href="{{action('VehicleController@vehicleCheckPage')}}" name="valstybinisNr" id="valstybinisNr" value="<?php $valstybinisNr ?>">Techninės apžiūros istorija</a></li>
-    <br>
     <li><a href="{{action('TrafficIncidentController@trafficIncidentPage')}}">Susiję eismo įvykiai</a></li>
 
-@endsection/
+@endsection
