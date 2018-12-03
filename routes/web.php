@@ -27,6 +27,7 @@ Route::get('/inventory', 'AccountController@inventoryPage');
 Route::get('/client', 'AccountController@clientPage');
 Route::get('/examTimetable', 'AccountController@examTimetablePage');
 Route::get('/vehicle', 'VehicleController@vehiclePage');
+Route::post('/vehicleInfo', 'VehicleController@vehicleInfoPage');
 Route::post('/vehicle', 'VehicleController@vehicleCreatePage');
 Route::get('/instructor', 'AccountController@instructorPage');
 Route::get('/route', 'AccountController@routePage');

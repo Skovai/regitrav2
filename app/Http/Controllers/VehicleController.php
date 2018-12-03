@@ -29,6 +29,14 @@ class VehicleController extends Controller
         return view('vehicle',compact('transportoPriemone'));
     }
     
+    public function vehicleInfoPage(Request $request)
+    {
+        $valstybinisNr = $request['valstybinisNr'];
+        $transportoPriemone =  TransportoPriemone::all()->where('valstybinisNr', '=', $valstybinisNr); //'LIKE', "%".$valstybinisNr."%")->get();
+        //dd(DB::getQueryLog());
+        return view('vehicleInfo',compact('transportoPriemone'));
+    }
+    
     public function vehicleCreatePage(Request $request)
     {
         $transportoPriemone = TransportoPriemone::all();

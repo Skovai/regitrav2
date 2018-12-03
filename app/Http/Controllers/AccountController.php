@@ -35,10 +35,6 @@ class AccountController extends Controller
     {
         return view('registrationToExam');
     }
-    public function vehicleInfoPage()
-    {
-        return view('vehicleInfo');
-    }
     public function accountsPage()
     {
         $saskaita =  Saskaita::all();
