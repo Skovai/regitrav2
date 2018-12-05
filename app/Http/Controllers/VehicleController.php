@@ -68,6 +68,15 @@ class VehicleController extends Controller
         return view('vehicleCheck',compact('technineApziura', 'valstybinisNr'));
     }
     
+    public function vehicleDeletePage(Request $request)
+    {
+        $transportoPriemone = TransportoPriemone::all();
+        $id = $request->input('id');
+        DB::table('transporto_priemone')->where('id', '=', $id)->delete();
+
+        return view('vehicle',compact('transportoPriemone'));
+    }
+    
     public function create()
     {
         //

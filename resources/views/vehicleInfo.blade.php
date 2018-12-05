@@ -51,5 +51,7 @@
     <li><a href="{{action('VehicleController@vehicleCheckPage')}}" name="valstybinisNr" id="valstybinisNr" value="<?php $valstybinisNr ?>">Techninės apžiūros istorija</a></li>
     <br>
     <li><a href="{{action('TrafficIncidentController@trafficIncidentPage')}}">Susiję eismo įvykiai</a></li>
+    <br>
+    <li><a href="{{action('VehicleController@vehicleDeletePage')}}">Išregistruoti TP</a></li>
 
 @endsection/

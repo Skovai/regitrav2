@@ -28,6 +28,7 @@ Route::get('/client', 'AccountController@clientPage');
 Route::get('/examTimetable', 'AccountController@examTimetablePage');
 Route::get('/vehicle', 'VehicleController@vehiclePage');
 Route::get('/vehicleCheck', 'VehicleController@vehicleCheckPage');
+Route::get('/vehicleDelete', 'VehicleController@vehicleDeletePage');
 Route::post('/vehicleInfo', 'VehicleController@vehicleInfoPage');
 Route::post('/vehicle', 'VehicleController@vehicleCreatePage');
 Route::get('/instructor', 'AccountController@instructorPage');
