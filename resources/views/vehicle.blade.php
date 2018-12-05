@@ -12,6 +12,33 @@
         
         <li><a href="{{action('AccountController@messagePage')}}">Sugeneruotas laiškas</a></li>
         <li><a href="{{action('VehicleController@licensePlateRegistrationPage')}}">Registruoti transporto priemonę</a></li>
+        
+        <button type="button"  data-toggle="modal" data-target="#myModal">Ieškoti TP</button>
+
+        <!-- Modal -->
+        <div class="modal fade" id="myModal" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Transporto priemonės paieška</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form method='post' action="{{action('VehicleController@vehicleInfoPage')}}">
+                            @csrf
+                        <input type="text" name="valstybinisNr" id="valstybinisNr" placeholder="Įveskite valstybinį nr.">
+                        <input type='submit' name='ok' value='Ieškoti'>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Atšaukti</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
 
         <div class="panel panel-default">
                 <div class="panel-heading">Transporto priemonių sąrašas</div>

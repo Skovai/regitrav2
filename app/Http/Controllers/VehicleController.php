@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\TransportoPriemone;
+use App\TechnineApziura;
 
 class VehicleController extends Controller
 {
@@ -29,6 +30,14 @@ class VehicleController extends Controller
         return view('vehicle',compact('transportoPriemone'));
     }
     
+    public function vehicleInfoPage(Request $request)
+    {
+        $valstybinisNr = $request['valstybinisNr'];
+        $transportoPriemone =  TransportoPriemone::all()->where('valstybinisNr', '=', $valstybinisNr); //'LIKE', "%".$valstybinisNr."%")->get();
+        //dd(DB::getQueryLog());
+        return view('vehicleInfo',compact('transportoPriemone', 'valstybinisNr'));
+    }
+    
     public function vehicleCreatePage(Request $request)
     {
         $transportoPriemone = TransportoPriemone::all();
@@ -49,6 +58,14 @@ class VehicleController extends Controller
     public function licensePlateRegistrationPage()
     {
         return view('licensePlateRegistration');
+    }
+    
+    public function vehicleCheckPage(Request $request)
+    {
+        $valstybinisNr = 'GGG:999';//$request['valstybinisNr'];
+        $TPID = TransportoPriemone::where('valstybinisNr', '=', $valstybinisNr)->first()->id;
+        $technineApziura = TechnineApziura::all()->where('FK_TransportoPriemone', '=', $TPID);
+        return view('vehicleCheck',compact('technineApziura', 'valstybinisNr'));
     }
     
     public function create()
