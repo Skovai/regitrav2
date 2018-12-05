@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Saskaita;
+use App\Inventorius;
+use App\Darbuotojas;
 use App\TransportoPriemone;
 
 use Illuminate\Support\Facades\Schema;
@@ -88,7 +90,29 @@ class AccountController extends Controller
     }
     public function inventoryPage()
     {
-        return view('inventory');
+        $inventory =  Inventorius::all();
+        $worker =  Darbuotojas::all();
+        return view('inventory',compact('inventory','worker'));
+    }
+    public function inventoryPageCreate(Request $request)
+    {
+        $inventory =  Inventorius::all();
+        $worker =  Darbuotojas::all();
+        $pav = $request->input('pav');
+        $serija = $request->input('serija');
+        $darbuotojas = $request->input('darbuotojas');
+        DB::table('inventorius')->insert(
+            ['pavadinimas' => $pav, 'serijos_numeris' => $serija, 'darbuotojas_id' => $darbuotojas]
+        );
+        return view('inventory',compact('inventory','worker'));
+    }
+    public function inventoryPageDelete(Request $request)
+    {
+        $inventory =  Inventorius::all();
+        $worker =  Darbuotojas::all();
+        $id = $request->input('id');
+        DB::table('inventorius')->where('id', '=', $id)->delete();
+        return view('inventory',compact('inventory','worker'));
     }
     public function messagePage()
     {

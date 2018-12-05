@@ -66,7 +66,7 @@
         </style>
     </head>
     <body>
-    <h1 class="text-center">Regitra V2</h1>
+    <h1 class="text-center"><a href="/">Regitra V2</a></h1>
     <div class="well">
         @yield('content')
 
