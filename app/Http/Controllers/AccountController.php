@@ -7,6 +7,7 @@ use App\Saskaita;
 use App\Inventorius;
 use App\Darbuotojas;
 use App\TransportoPriemone;
+use App\Egzaminas;
 
 use Illuminate\Support\Facades\Schema;
 
@@ -33,10 +34,7 @@ class AccountController extends Controller
     {
         return view('registrationExamInfo');
     }
-    public function registrationToExamPage()
-    {
-        return view('registrationToExam');
-    }
+
     public function accountsPage()
     {
         $saskaita =  Saskaita::all();
