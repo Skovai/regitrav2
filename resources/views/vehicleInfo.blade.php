@@ -52,6 +52,16 @@
     <br>
     <li><a href="{{action('TrafficIncidentController@trafficIncidentPage')}}">Susiję eismo įvykiai</a></li>
     <br>
-    <li><a href="{{action('VehicleController@vehicleDeletePage')}}">Išregistruoti TP</a></li>
+    <form method="post" action="{{action('VehicleController@vehicleDeletePage')}}">
+            @csrf
+
+                    <input type="hidden" value="{{ $key->id }}" name="id">
+                    <button name="difficulty" class="btn btn-danger"
+                            value="3" type="submit">
+                            Išregistruoti TP
+                    </button>
+
+    </form>
+    
 
 @endsection/
