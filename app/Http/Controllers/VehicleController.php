@@ -60,6 +60,15 @@ class VehicleController extends Controller
         return view('licensePlateRegistration');
     }
     
+    public function licensePlateEditPage(Request $request)
+    {
+        $id = $request->input('id');
+        $transportoPriemone =  TransportoPriemone::all()->where('id', '=', $id);
+        $valstybinisNr = $request['valstybinisNr'];
+        DB::table('transporto_priemone')->where('id', '=', $id)->update(['valstybinisNr' => $valstybinisNr]);
+        return view('vehicleInfo',compact('transportoPriemone', 'valstybinisNr'));
+    }
+    
     public function vehicleCheckPage(Request $request)
     {
         $valstybinisNr = 'GGG:999';//$request['valstybinisNr'];

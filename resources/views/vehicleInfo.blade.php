@@ -52,16 +52,41 @@
     <br>
     <li><a href="{{action('TrafficIncidentController@trafficIncidentPage')}}">Susiję eismo įvykiai</a></li>
     <br>
+    
+    <button type="button"  data-toggle="modal" data-target="#myModal">Keisti valstybinį nr.</button>
+
+        <!-- Modal -->
+        <div class="modal fade" id="myModal" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Įveskite naują valstybinį nr.</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form method='post' action="{{action('VehicleController@licensePlateEditPage')}}">
+                            @csrf
+                        <input type="hidden" value="{{ $key->id }}" name="id">
+                        <input type="text" name="valstybinisNr" id="valstybinisNr" placeholder="Įveskite valstybinį nr.">
+                        <input type='submit' name='ok' value='Atnaujinti'>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Atšaukti</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <br>
+        <br>
     <form method="post" action="{{action('VehicleController@vehicleDeletePage')}}">
             @csrf
 
                     <input type="hidden" value="{{ $key->id }}" name="id">
-                    <button name="difficulty" class="btn btn-danger"
-                            value="3" type="submit">
-                            Išregistruoti TP
-                    </button>
+                    <button type="submit">Išregistruoti TP</button>
 
     </form>
-    
-
 @endsection/

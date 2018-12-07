@@ -29,6 +29,7 @@ Route::get('/examTimetable', 'AccountController@examTimetablePage');
 Route::get('/vehicle', 'VehicleController@vehiclePage');
 Route::get('/vehicleCheck', 'VehicleController@vehicleCheckPage');
 Route::post('/vehicleDelete', 'VehicleController@vehicleDeletePage');
+Route::post('/vehiclePlateEdit', 'VehicleController@licensePlateEditPage');
 Route::post('/vehicleInfo', 'VehicleController@vehicleInfoPage');
 Route::post('/vehicle', 'VehicleController@vehicleCreatePage');
 Route::get('/instructor', 'AccountController@instructorPage');
