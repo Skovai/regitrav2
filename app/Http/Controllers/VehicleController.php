@@ -71,10 +71,30 @@ class VehicleController extends Controller
     
     public function vehicleCheckPage(Request $request)
     {
-        $valstybinisNr = 'GGG:999';//$request['valstybinisNr'];
-        $TPID = TransportoPriemone::where('valstybinisNr', '=', $valstybinisNr)->first()->id;
-        $technineApziura = TechnineApziura::all()->where('FK_TransportoPriemone', '=', $TPID);
-        return view('vehicleCheck',compact('technineApziura', 'valstybinisNr'));
+        $id = $request->input('id');
+        $technineApziura = TechnineApziura::all()->where('FK_TransportoPriemone', '=', $id);
+        return view('vehicleCheck',compact('technineApziura', 'id'));
+    }
+    
+    public function vehicleCheckAddPage(Request $request)
+    {
+        $TPID = $request->input('id');
+        
+        return view('vehicleCheckAdd', compact('TPID'));
+    }
+    
+    public function vehicleCheckAdd(Request $request)
+    {
+        $id = $request->input('id');
+        $atlikimoData = $request->input('atlikimoData');
+        $galiojimoData = $request->input('galiojimoData');
+        $kaina = $request->input('kaina');
+        $arPraeita = $request->input('arPraeita');
+        DB::table('technine_apziura')->insert(['atlikimoData' => $atlikimoData, 'galiojimoData' => $galiojimoData, 'kaina' => $kaina, 'arPraeita' => $arPraeita, 'FK_TransportoPriemone' => $id]);
+        //$valstybinisNr = $request->input('valstybinisNr');
+        //$TPID = TransportoPriemone::where('valstybinisNr', '=', $valstybinisNr)->select('id')->first();
+        $technineApziura = TechnineApziura::all()->where('FK_TransportoPriemone', '=', $id);
+        return view('vehicleCheck',compact('technineApziura', 'id'));
     }
     
     public function vehicleDeletePage(Request $request)

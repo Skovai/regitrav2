@@ -5,7 +5,6 @@
     <h1>Transporto priemonės duomenys</h1>
     
     <div class="panel panel-default">
-                <div class="panel-heading">Transporto priemonių sąrašas</div>
                 <div class="panel-body">
                             <table class="table">
                                     <thead>
@@ -48,8 +47,13 @@
                             </table>
             </div>
     </div>
-    <li><a href="{{action('VehicleController@vehicleCheckPage')}}" name="valstybinisNr" id="valstybinisNr" value="<?php $valstybinisNr ?>">Techninės apžiūros istorija</a></li>
-    <br>
+
+    <form method="post" action="{{action('VehicleController@vehicleCheckPage')}}">
+        @csrf
+        <input type="hidden" value="{{ $key->id }}" name="id">
+        <button type="submit">Techninės apžiūros istorija</button>
+    </form>
+    
     <li><a href="{{action('TrafficIncidentController@trafficIncidentPage')}}">Susiję eismo įvykiai</a></li>
     <br>
     
@@ -80,13 +84,14 @@
 
             </div>
         </div>
+        
         <br>
         <br>
+        
     <form method="post" action="{{action('VehicleController@vehicleDeletePage')}}">
-            @csrf
-
-                    <input type="hidden" value="{{ $key->id }}" name="id">
-                    <button type="submit">Išregistruoti TP</button>
-
+        @csrf
+        <input type="hidden" value="{{ $key->id }}" name="id">
+        <button type="submit">Išregistruoti TP</button>
     </form>
+        
 @endsection/

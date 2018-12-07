@@ -5,14 +5,13 @@
     <h1>Techninės apžiūros istorija</h1>
     
     <div class="panel panel-default">
-                <div class="panel-heading">Transporto priemonių sąrašas</div>
                 <div class="panel-body">
                             <table class="table">
                                     <thead>
                                     <tr>
                                             <th>Atlikimo data</th>
                                             <th>Galioja iki</th>
-                                            <th>Kaina</th>
+                                            <th>Kaina (EUR)</th>
                                             <th>Ar praeita</th>
                                     </tr>
                                     </thead>
@@ -40,6 +39,11 @@
                             </table>
             </div>
     </div>
-    <li><a href="{{action('TrafficIncidentController@trafficIncidentPage')}}">Susiję eismo įvykiai</a></li>
+    
+    <form method="post" action="{{action('VehicleController@vehicleCheckAddPage')}}">
+        @csrf
+        <input type="hidden" value="{{ $id }}" name="id">
+        <button type="submit">Pridėti techninės apžiūros įrašą</button>
+    </form>
 
 @endsection
