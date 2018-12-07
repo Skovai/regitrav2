@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Saskaita;
 use App\TransportoPriemone;
+use App\Egzaminas;
 
 use Illuminate\Support\Facades\Schema;
 
@@ -31,10 +32,7 @@ class AccountController extends Controller
     {
         return view('registrationExamInfo');
     }
-    public function registrationToExamPage()
-    {
-        return view('registrationToExam');
-    }
+
     public function accountsPage()
     {
         $saskaita =  Saskaita::all();

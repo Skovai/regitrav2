@@ -1,11 +1,17 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
-
+use App\Egzaminas;
 class ExamController extends Controller
 {
+
+    public function registrationToExamPage()
+    {
+        $egzaminas = Egzaminas::all();
+        return view('registrationToExam', compact('egzaminas'));
+    }
     /**
      * Display a listing of the resource.
      *

@@ -15,6 +15,7 @@ class CreateEgzaminasTable extends Migration
     {
         Schema::create('egzaminas', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('kategorija');
             $table->date('data');
             $table->time('pradzia');
             $table->time('pabaiga');
