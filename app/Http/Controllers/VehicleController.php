@@ -40,7 +40,6 @@ class VehicleController extends Controller
     
     public function vehicleCreatePage(Request $request)
     {
-        $transportoPriemone = TransportoPriemone::all();
         $valstybinisNr = $request->input('valstybinisNr');
         $VIN = $request->input('VIN');
         $marke = $request->input('marke');
@@ -52,6 +51,7 @@ class VehicleController extends Controller
         DB::table('transporto_priemone')->insert(
             ['valstybinisNr' => $valstybinisNr, 'VIN' => $VIN, 'marke' => $marke, 'modelis' => $modelis, 'spalva' => $spalva, 'galingumas' => $galingumas, 'kategorija' => 1, 'FK_Klientas' => 1]
         );
+        $transportoPriemone = TransportoPriemone::all();
         return view('vehicle',compact('transportoPriemone'));
     }
     
@@ -99,10 +99,9 @@ class VehicleController extends Controller
     
     public function vehicleDeletePage(Request $request)
     {
-        $transportoPriemone = TransportoPriemone::all();
         $id = $request->input('id');
         DB::table('transporto_priemone')->where('id', '=', $id)->delete();
-
+        $transportoPriemone = TransportoPriemone::all();
         return view('vehicle',compact('transportoPriemone'));
     }
     
