@@ -28,36 +28,16 @@
                                             <td>{{ $key->vieta }}</td>
                                             <td>{{ $key->aprasas }}</td>
                                             <td>{{ $key->pareigunai }}</td>
-                                            <td>
-                                            <button type="button"  data-toggle="modal" data-target="#myModal">Įtraukti TP</button>
-
-                                            <!-- Modal -->
-                                            <div class="modal fade" id="myModal" role="dialog">
-                                                <div class="modal-dialog">
-
-                                                    <!-- Modal content-->
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                                            <h4 class="modal-title">Įveskite valstybinį nr. transporto priemonės, kuri taip pat dalyvavo šiame eismo įvykyje</h4>
-                                                        </div>
-                                                        <div class="modal-body">
-                                                            <form method='post' action="{{action('TrafficIncidentController@includeLicensePlate')}}">
-                                                                @csrf
+                                                
+                                                <form method="post" action="{{action('TrafficIncidentController@includeLicensePlate')}}">
+                                                    @csrf
+                                                    <td>
                                                             <input type="hidden" value="{{ $key->id }}" name="ivykioId">
                                                             <input type="hidden" value="{{ $id }}" name="id">
                                                             <input type="text" name="valstybinisNr" id="valstybinisNr" placeholder="Įveskite valstybinį nr.">
                                                             <input type='submit' name='ok' value='Itraukti'>
-                                                            </form>
-                                                        </div>
-                                                        <div class="modal-footer">
-                                                            <button type="button" class="btn btn-default" data-dismiss="modal">Atšaukti</button>
-                                                        </div>
-                                                    </div>
-
-                                                </div>
-                                            </div>
-                                            </td>
+                                                    </td>
+                                                </form>
                                     </tr>
                                     @endforeach
                                     </tbody>
