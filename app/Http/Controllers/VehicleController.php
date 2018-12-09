@@ -33,8 +33,7 @@ class VehicleController extends Controller
     public function vehicleInfoPage(Request $request)
     {
         $valstybinisNr = $request['valstybinisNr'];
-        $transportoPriemone =  TransportoPriemone::all()->where('valstybinisNr', '=', $valstybinisNr); //'LIKE', "%".$valstybinisNr."%")->get();
-        //dd(DB::getQueryLog());
+        $transportoPriemone =  TransportoPriemone::all()->where('valstybinisNr', '=', $valstybinisNr); //'LIKE', "%".$valstybinisNr."%")->();
         return view('vehicleInfo',compact('transportoPriemone', 'valstybinisNr'));
     }
     
@@ -91,8 +90,6 @@ class VehicleController extends Controller
         $kaina = $request->input('kaina');
         $arPraeita = $request->input('arPraeita');
         DB::table('technine_apziura')->insert(['atlikimoData' => $atlikimoData, 'galiojimoData' => $galiojimoData, 'kaina' => $kaina, 'arPraeita' => $arPraeita, 'FK_TransportoPriemone' => $id]);
-        //$valstybinisNr = $request->input('valstybinisNr');
-        //$TPID = TransportoPriemone::where('valstybinisNr', '=', $valstybinisNr)->select('id')->first();
         $technineApziura = TechnineApziura::all()->where('FK_TransportoPriemone', '=', $id);
         return view('vehicleCheck',compact('technineApziura', 'id'));
     }
