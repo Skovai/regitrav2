@@ -48,14 +48,18 @@
             </div>
     </div>
 
+    <table>
     <form method="post" action="{{action('VehicleController@vehicleCheckPage')}}">
         @csrf
         <input type="hidden" value="{{ $key->id }}" name="id">
         <button type="submit">Techninės apžiūros istorija</button>
     </form>
     
-    <li><a href="{{action('TrafficIncidentController@trafficIncidentPage')}}">Susiję eismo įvykiai</a></li>
-    <br>
+    <form method="post" action="{{action('TrafficIncidentController@trafficIncidentPage')}}">
+        @csrf
+        <input type="hidden" value="{{ $key->id }}" name="id">
+        <button type="submit">Susiję eismo įvykiai</button>
+    </form>
     
     <button type="button"  data-toggle="modal" data-target="#myModal">Keisti valstybinį nr.</button>
 
@@ -85,13 +89,11 @@
             </div>
         </div>
         
-        <br>
-        <br>
-        
     <form method="post" action="{{action('VehicleController@vehicleDeletePage')}}">
         @csrf
         <input type="hidden" value="{{ $key->id }}" name="id">
         <button type="submit">Išregistruoti TP</button>
     </form>
+    </table>
         
 @endsection/

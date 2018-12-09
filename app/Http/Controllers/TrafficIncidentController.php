@@ -1,8 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+use App\TransportoPriemone;
+use App\EismoIvykis;
 
 class TrafficIncidentController extends Controller
 {
@@ -18,7 +20,12 @@ class TrafficIncidentController extends Controller
     
     public function trafficIncidentPage(Request $request)
     {
-        return view('trafficIncident');
+        $TPID = $request->input('id');
+        $eismoIvykis = DB::table('eismo_ivykis')->join('dalyvauja', 'eismo_ivykis.id', '=', 'dalyvauja.FK_EismoIvykis' )
+                                                ->join('transporto_priemone', 'dalyvauja.FK_TransportoPriemone', '=', 'transporto_priemone.id')
+                                                ->select('eismo_ivykis.*')
+                                                ->where('transporto_priemone.id', '=', $TPID)->get();
+        return view('trafficIncident',compact('eismoIvykis', 'id'));
     }
 
     /**

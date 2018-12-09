@@ -36,7 +36,7 @@ Route::post('/vehicleInfo', 'VehicleController@vehicleInfoPage');
 Route::post('/vehicle', 'VehicleController@vehicleCreatePage');
 Route::get('/instructor', 'AccountController@instructorPage');
 Route::get('/route', 'AccountController@routePage');
-Route::get('/trafficIncident', 'TrafficIncidentController@trafficIncidentPage');
+Route::post('/trafficIncident', 'TrafficIncidentController@trafficIncidentPage');
 Route::get('/accountsCreate', 'AccountController@accountsPage');
 Route::post('/accountsCreate/success', 'AccountController@accountsPageCreate');
 Route::post('/accountsCreate/deleted', 'AccountController@accountsPageDelete');
