@@ -8,7 +8,7 @@ use App\TransportoPriemone;
 use App\Klientas;
 use App\Egzaminas;
 use App\Kategorija;
-
+use App\Inventorius;
 use Illuminate\Support\Facades\Schema;
 
 class AccountController extends Controller
@@ -90,7 +90,8 @@ class AccountController extends Controller
     }
     public function inventoryPage()
     {
-        return view('inventory');
+        $inventorius = Inventorius::all();
+        return view('inventory',compact('inventorius'));
     }
     public function messagePage()
     {

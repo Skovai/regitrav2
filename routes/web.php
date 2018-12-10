@@ -26,6 +26,7 @@ Route::get('/driversLicense', 'AccountController@driversLicensePage');
 // LVL 3
 Route::get('/employee', 'AccountController@employeePage');
 Route::get('/inventory', 'AccountController@inventoryPage');
+Route::post('/inventory/create', 'EmployeeController@inventoryCreate');
 
 Route::get('/client', 'AccountController@clientPage');
 Route::get('/examTimetable', 'AccountController@examTimetablePage');

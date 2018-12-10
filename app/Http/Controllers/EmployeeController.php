@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
+use App\Inventorius;
 
 class EmployeeController extends Controller
 {
@@ -16,6 +19,19 @@ class EmployeeController extends Controller
         //
     }
 
+    public function inventoryCreate(Request $request)
+    {
+        $inventorius = Inventorius::all();
+        $id = Auth::user()->getAuthIdentifier();
+        $darbuotojas_id = DB::table('darbuotojas')->where('FK_Pirisijungimo_id', $id)->select('id')->pluck('id')->first();
+        $serijos_numeris = $request->input('serijos_numeris');
+        $pavadinimas = $request->input('pavadinimas');
+        DB::table('inventorius')->insert(
+            ['pavadinimas' => $pavadinimas,'serijos_numeris' => $serijos_numeris, 'darbuotojas_id' => $darbuotojas_id ]
+        );
+
+        return view('inventory',compact('inventorius'));
+    }
     /**
      * Show the form for creating a new resource.
      *
