@@ -9,6 +9,4 @@ class Inventorius extends Model
     protected $fillable = [
         'darbuotojas_id', 'pavadinimas', 'serijos_numeris'
     ];
-
-    protected $table = 'inventorius';
 }

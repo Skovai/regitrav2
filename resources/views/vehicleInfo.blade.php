@@ -5,7 +5,6 @@
     <h1>Transporto priemonės duomenys</h1>
     
     <div class="panel panel-default">
-                <div class="panel-heading">Transporto priemonių sąrašas</div>
                 <div class="panel-body">
                             <table class="table">
                                     <thead>
@@ -48,8 +47,53 @@
                             </table>
             </div>
     </div>
-    <li><a href="{{action('VehicleController@vehicleCheckPage')}}" name="valstybinisNr" id="valstybinisNr" value="<?php $valstybinisNr ?>">Techninės apžiūros istorija</a></li>
-    <br>
-    <li><a href="{{action('TrafficIncidentController@trafficIncidentPage')}}">Susiję eismo įvykiai</a></li>
 
+    <table>
+    <form method="post" action="{{action('VehicleController@vehicleCheckPage')}}">
+        @csrf
+        <input type="hidden" value="{{ $key->id }}" name="id">
+        <button type="submit">Techninės apžiūros istorija</button>
+    </form>
+    
+    <form method="post" action="{{action('TrafficIncidentController@trafficIncidentPage')}}">
+        @csrf
+        <input type="hidden" value="{{ $key->id }}" name="id">
+        <button type="submit">Susiję eismo įvykiai</button>
+    </form>
+    
+    <button type="button"  data-toggle="modal" data-target="#myModal">Keisti valstybinį nr.</button>
+
+        <!-- Modal -->
+        <div class="modal fade" id="myModal" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Įveskite naują valstybinį nr.</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form method='post' action="{{action('VehicleController@licensePlateEditPage')}}">
+                            @csrf
+                        <input type="hidden" value="{{ $key->id }}" name="id">
+                        <input type="text" name="valstybinisNr" id="valstybinisNr" placeholder="Įveskite valstybinį nr.">
+                        <input type='submit' name='ok' value='Atnaujinti'>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Atšaukti</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        
+    <form method="post" action="{{action('VehicleController@vehicleDeletePage')}}">
+        @csrf
+        <input type="hidden" value="{{ $key->id }}" name="id">
+        <button type="submit">Išregistruoti TP</button>
+    </form>
+    </table>
+        
 @endsection/
