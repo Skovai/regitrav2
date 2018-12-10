@@ -18,14 +18,14 @@ Route::get('/main', 'AccountController@mainPage');
 Route::get('/adminFunction', 'AccountController@adminFunctionPage');
 Route::get('/registrationExamInfo', 'AccountController@registrationExamInfoPage');
 Route::get('/registrationToExam', 'AccountController@registrationToExamPage');
+Route::post('/registrationToExam/create', 'ExamController@examCreate');
 Route::get('/vehicleInfo', 'AccountController@vehicleInfoPage');
 Route::get('/accounts', 'AccountController@accountsPage');
 Route::get('/driversLicense', 'AccountController@driversLicensePage');
 // LVL 3
 Route::get('/employee', 'AccountController@employeePage');
 Route::get('/inventory', 'AccountController@inventoryPage');
-Route::post('/inventory/success', 'AccountController@inventoryPageCreate');
-Route::post('/inventory/deleted', 'AccountController@inventoryPageDelete');
+
 Route::get('/client', 'AccountController@clientPage');
 Route::get('/examTimetable', 'AccountController@examTimetablePage');
 Route::get('/vehicle', 'VehicleController@vehiclePage');
@@ -40,6 +40,7 @@ Route::post('/accountsCreate/success', 'AccountController@accountsPageCreate');
 Route::post('/accountsCreate/deleted', 'AccountController@accountsPageDelete');
 Route::get('/licensePlateRegistration', 'VehicleController@licensePlateRegistrationPage');
 Route::get('/clientEditing', 'AccountController@clientDataEditingPage');
+Route::post('/clientEditing/update', 'ClientController@clientUpdate');
 
 // LVL 4
 Route::get('/employeeDataEditing', 'AccountController@employeeDataEditingPage');
@@ -49,3 +50,9 @@ Route::get('/generatedMessage', 'AccountController@messagePage');
 
 // LVL5
 Route::get('/timetableMessagePage', 'AccountController@timetableMessagePage');
+// Bonus 
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/logout', 'Auth\LoginController@logout');

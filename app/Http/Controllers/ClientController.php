@@ -3,17 +3,32 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class ClientController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
         //
+    }
+    public function clientUpdate(Request $request)
+    {
+        $id = Auth::user()->getAuthIdentifier();
+        $vardas = $request->input('vardas');
+        $pavarde = $request->input('pavarde');
+        $ak = $request->input('ak');
+        $nr = $request->input('nr');
+        $miestas = $request->input('miestas');
+        $adresas = $request->input('adresas');
+        $gimimoData = $request->input('gimimoData');
+        $pastas = $request->input('pastas');
+        DB::table('klientas')->insert(
+            ['vardas' => $vardas, 'pavarde' => $pavarde, 'asmens_kodas' => $ak, 'tel_nr' => $nr, 'miestas' => $miestas , 'adresas' => $adresas
+            , 'gimimo_data' => $gimimoData, 'e_pastas' => $pastas , 'FK_Darbuotojas' => NULL, 'FK_Pirisijungimo_id' => $id ]
+        );
+        return view('main');
     }
 
     /**

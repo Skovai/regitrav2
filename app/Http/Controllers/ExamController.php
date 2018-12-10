@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
 class ExamController extends Controller
@@ -15,6 +16,22 @@ class ExamController extends Controller
     {
         //
     }
+
+    public function examCreate(Request $request)
+    {
+        $data = $request->input('data');
+        $pradzia = $request->input('pradzia');
+        $pabaiga = $request->input('pabaiga');
+        $kaina = $request->input('kaina');
+        $vieta = $request->input('vieta');
+        $tipas = $request->input('tipas');
+        $arIslaikyta = $request->input('arIslaikyta');
+        DB::table('egzaminas')->insert(
+            ['data' => $data, 'pradzia' => $pradzia, 'pabaiga' => $pabaiga, 'kaina' => $kaina, 'vieta' => $vieta, 'tipas' => $tipas, 'arIslaikyta' => $arIslaikyta, 'FK_Marsrutas'  => 1, 'FK_Klientas' => 1 ]
+        );
+        return view('registrationToExam');
+    }
+
 
     /**
      * Show the form for creating a new resource.

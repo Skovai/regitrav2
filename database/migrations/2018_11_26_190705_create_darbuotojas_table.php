@@ -28,6 +28,8 @@ class CreateDarbuotojasTable extends Migration
             $table->string('e_pastas');
             $table->biginteger('asmens_kodas');
             $table->date('gimimo_data');
+            $table->unsignedInteger('FK_Pirisijungimo_id')->index();
+            $table->foreign('FK_Pirisijungimo_id')->references('id')->on('users');
             $table->timestamps();
         });
     }

@@ -6,11 +6,10 @@
     <?php
 
     $saskaitaTable = DB::table('saskaita')->where('id' ,'>' ,0)->select('id')->pluck('id')->reverse()->toArray();
-
+    if(Auth::check()){$id = Auth::user()->getAuthIdentifier();}
     ?>
+    @if(DB::table('darbuotojas')->where('FK_Pirisijungimo_id', '=', $id)->exists())
         <h1>Sąskaitų langas</h1>
-
-
         <div class="panel panel-default">
                 <div class="panel-heading">Pildyti sąskaita</div>
                 <div class="panel-body">
@@ -30,6 +29,12 @@
 
                         <label for="terminas">Terminas</label>
                         <input id="terminas"type="date" name="terminas">
+                         
+                        <select name="FK_klientas">
+                        @foreach ($klientas as $key)
+                        <option value="{{ $key->id }}">{{ $key->asmens_kodas }}|| {{ $key->vardas }} {{ $key->pavarde }}</option>
+                        @endforeach
+                        </select>
 
                         <button name="difficulty" class="btn btn-danger" style="width: 80px"
                                 value="3" type="submit">
@@ -73,5 +78,34 @@
 
             </div>
     </div>
+    @else
+    <div class="panel panel-default">
+                <div class="panel-heading">Saskaitu peržiūra</div>
+                <div class="panel-body">
+                                <table class="table">
+                                        <thead>
+                                        <tr>
+                                                <th>Suma</th>
+                                                <th>Paskirtis</th>
+                                                <th>Terminas</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        @foreach ($saskaita as $key)
+                                        @if(DB::table('saskaita')->where('FK_klientas', '=', $id)->exists())
+
+                                        <tr>
+                                                <td>{{ $key->suma }}</td>
+                                                <td>{{ $key->paskirtis }}</td>
+                                                <td>{{ $key->terminas }}</td>
+                                        </tr>
+                                        @endif
+                                        @endforeach
+                                        </tbody>
+                                </table>
+    
+                </div>
+        </div>
+        @endif
 
 @endsection

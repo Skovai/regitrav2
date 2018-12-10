@@ -66,7 +66,10 @@
         </style>
     </head>
     <body>
-    <h1 class="text-center"><a href="/">Regitra V2</a></h1>
+    <h1 class="text-center"><a href="<?php if(Auth::check()){ echo '/main';}else{ echo '/';} ?>">Regitra V2</a></h1>
+    @auth
+    <li><a href="{{url('/logout')}}">Atsijungti</a></li>
+    @endauth
     <div class="well">
         @yield('content')
 

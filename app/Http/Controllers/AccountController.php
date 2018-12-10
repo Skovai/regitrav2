@@ -7,6 +7,7 @@ use App\Saskaita;
 use App\Inventorius;
 use App\Darbuotojas;
 use App\TransportoPriemone;
+use App\Klientas;
 
 use Illuminate\Support\Facades\Schema;
 
@@ -40,28 +41,33 @@ class AccountController extends Controller
     public function accountsPage()
     {
         $saskaita =  Saskaita::all();
-        return view('accounts',compact('saskaita'));
+        $klientas =  Klientas::all();
+        return view('accounts',compact('saskaita','klientas'));
     }
     public function accountsPageCreate(Request $request)
     {
         $saskaita =  Saskaita::all();
+        $klientas =  Klientas::all();
         $suma = $request->input('suma');
         $paskirtis = $request->input('paskirtis');
         $isdavimo_data = $request->input('isdavimo_data');
         $isdavimo_laikas = $request->input('isdavimo_laikas');
         $terminas = $request->input('terminas');
+        $FK_klientas = $request->input('FK_klientas');
         DB::table('saskaita')->insert(
-            ['suma' => $suma, 'paskirtis' => $paskirtis, 'isdavimo_data' => $isdavimo_data, 'isdavimo_laikas' => $isdavimo_laikas, 'terminas' => $terminas, 'darbuotojas_id' => 1]
+            ['suma' => $suma, 'paskirtis' => $paskirtis, 'isdavimo_data' => $isdavimo_data, 'isdavimo_laikas' => $isdavimo_laikas,
+             'terminas' => $terminas, 'darbuotojas_id' => NULL, 'FK_klientas' => $FK_klientas]
         );
-        return view('accounts',compact('saskaita'));
+        return view('accounts',compact('saskaita', 'klientas'));
     }
     public function accountsPageDelete(Request $request)
     {
         $saskaita =  Saskaita::all();
+        $klientas =  Klientas::all();
         $id = $request->input('id');
         DB::table('saskaita')->where('id', '=', $id)->delete();
 
-        return view('accounts',compact('saskaita'));
+        return view('accounts',compact('saskaita', 'klientas'));
     }
     
     public function driversLicensePage()
