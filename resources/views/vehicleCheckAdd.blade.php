@@ -2,6 +2,8 @@
 
 @section('title', 'Pagrindinis')
 @section('content')
+                <!--TODO tik darbuotojas-->
+
      <div class="panel panel-default">
                 <div class="panel-heading">Pridėti tehninės apžiūros įrašą</div>
                 <div class="panel-body">

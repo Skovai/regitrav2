@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Egzaminas;
+use App\Kategorija;
+use Illuminate\Support\Facades\Auth;
+
 class ExamController extends Controller
 {
 
@@ -23,8 +26,22 @@ class ExamController extends Controller
         //
     }
 
+    public function registerToExam(Request $request)
+    {
+        $egzaminas = Egzaminas::all();
+        $id = Auth::user()->getAuthIdentifier();
+        $klientasId = DB::table('klientas')->where('FK_Pirisijungimo_id', $id)->select('id')->pluck('id')->first();
+        $egzaminas_id = $request->input('egzaminas_id');
+        DB::table('egzaminuojamas_klientas')->insert(
+            ['FK_klientas' => $klientasId,'FK_egzaminas' => $egzaminas_id ]
+        );
+
+        return view('registrationToExam',compact('egzaminas'));
+    }
     public function examCreate(Request $request)
     {
+        $kategorija =  Kategorija::all();
+        $kat = $request->input('kategorija');
         $data = $request->input('data');
         $pradzia = $request->input('pradzia');
         $pabaiga = $request->input('pabaiga');
@@ -33,9 +50,9 @@ class ExamController extends Controller
         $tipas = $request->input('tipas');
         $arIslaikyta = $request->input('arIslaikyta');
         DB::table('egzaminas')->insert(
-            ['data' => $data, 'pradzia' => $pradzia, 'pabaiga' => $pabaiga, 'kaina' => $kaina, 'vieta' => $vieta, 'tipas' => $tipas, 'arIslaikyta' => $arIslaikyta, 'FK_Marsrutas'  => 1, 'FK_Klientas' => 1 ]
+            ['kategorija' => $kat,'data' => $data, 'pradzia' => $pradzia, 'pabaiga' => $pabaiga, 'kaina' => $kaina, 'vieta' => $vieta, 'tipas' => $tipas, 'arIslaikyta' => $arIslaikyta, 'FK_Marsrutas'  => 1, 'FK_Klientas' => 1 ]
         );
-        return view('registrationToExam');
+        return view('examTimetable',compact('kategorija'));
     }
 
 

@@ -14,27 +14,16 @@ class DarbuotojasTableSeeder extends Seeder
     public function run()
     {
         darboutojas::create([
-            'pareigos' => 'Instruktorius',
-            'vardas' => 'Jonas',
-            'pavarde' => 'Jonaitis',
+            'pareigos' => 'Administratorius',
+            'vardas' => 'Admin',
+            'pavarde' => 'Admin',
             'miestas' => 'Kaunas',
             'adresas' => 'Studentu g. 20',
             'telefonas' => '862118573',
-            'e_pastas' => 'Jonas@Jonaitis.com',
+            'e_pastas' => 'Admin@Admin.com',
             'asmens_kodas' => 33309240064,
             'gimimo_data' => Carbon::create('2000','01','01'),
-        ]);
-
-        darboutojas::create([
-            'pareigos' => 'Darbuotojas',
-            'vardas' => 'Tadas',
-            'pavarde' => 'Tadaitis',
-            'miestas' => 'Kaunas',
-            'adresas' => 'Studentu g. 50',
-            'telefonas' => '862118579',
-            'e_pastas' => 'Tadas@Tadaitis.com',
-            'asmens_kodas' => 33309240069,
-            'gimimo_data' => Carbon::create('2000','01','01'),
+            'FK_Pirisijungimo_id' => 1
         ]);
     }
 }

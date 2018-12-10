@@ -7,6 +7,7 @@ use App\Saskaita;
 use App\TransportoPriemone;
 use App\Klientas;
 use App\Egzaminas;
+use App\Kategorija;
 
 use Illuminate\Support\Facades\Schema;
 
@@ -31,7 +32,8 @@ class AccountController extends Controller
     }
     public function registrationExamInfoPage()
     {
-        return view('registrationExamInfo');
+        $egzaminas =  Egzaminas::all();
+        return view('registrationExamInfo',compact('egzaminas'));
     }
 
     public function accountsPage()
@@ -100,7 +102,14 @@ class AccountController extends Controller
     }
     public function examTimetablePage()
     {
-        return view('examTimetable');
+        $kategorija =  Kategorija::all();
+
+        return view('examTimetable',compact('kategorija'));
+    }
+    public function registrationToExamPage()
+    {
+        $egzaminas = Egzaminas::all();
+        return view('registrationToExam' ,compact('egzaminas'));
     }
     public function instructorPage()
     {
