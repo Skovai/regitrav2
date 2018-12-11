@@ -6,6 +6,9 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Egzaminas;
 use App\Kategorija;
+use App\Marsrutas;
+use App\Darbuotojas;
+use App\Klientas;
 use Illuminate\Support\Facades\Auth;
 
 class ExamController extends Controller
@@ -23,7 +26,38 @@ class ExamController extends Controller
      */
     public function index()
     {
-        //
+
+    }
+    public function addInstructor(Request $request)
+    {
+        $darbuotojas = Darbuotojas::all();
+        $klientas = Klientas::all();
+        $klientas_id = $request->input('klientas');
+        $darbuotojas_id = $request->input('darbuotojas');
+        DB::table('klientas')->where('id', $klientas_id)->update(['FK_Darbuotojas' => $darbuotojas_id]);
+        return view('instructor', compact('darbuotojas', 'klientas'));
+    }
+
+    public function routeDelete(Request $request)
+    {
+        $marsrutas = Marsrutas::all();
+        $id = $request->input('id');
+        DB::table('marsrutas')->where('id', '=', $id)->delete();
+        return view('route',compact('marsrutas'));
+    }
+
+
+    public function routeCreate(Request $request)
+    {
+        $marsrutas = Marsrutas::all();
+        $kelias = $request->input('kelias');
+        $laikas = $request->input('laikas');
+        $ilgis = $request->input('ilgis');
+        DB::table('marsrutas')->insert(
+            ['kelias' => $kelias,'laikas' => $laikas, 'ilgis' => $ilgis ]
+        );
+
+        return view('registrationToExam',compact('marsrutas'));
     }
 
     public function registerToExam(Request $request)

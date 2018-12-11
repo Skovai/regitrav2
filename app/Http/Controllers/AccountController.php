@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Darbuotojas;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Saskaita;
@@ -9,6 +10,7 @@ use App\Klientas;
 use App\Egzaminas;
 use App\Kategorija;
 use App\Inventorius;
+use App\Marsrutas;
 use Illuminate\Support\Facades\Schema;
 
 class AccountController extends Controller
@@ -114,11 +116,14 @@ class AccountController extends Controller
     }
     public function instructorPage()
     {
-        return view('instructor');
+        $darbuotojas = Darbuotojas::all();
+        $klientas = Klientas::all();
+        return view('instructor', compact('darbuotojas', 'klientas'));
     }
     public function routePage()
     {
-        return view('route');
+        $marsrutas =  Marsrutas::all();
+        return view('route', compact('marsrutas'));
     }
     public function clientDataEditingPage()
     {
