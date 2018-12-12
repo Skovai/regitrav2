@@ -28,6 +28,15 @@ class ExamController extends Controller
     {
 
     }
+    public function showExamsByCategory(Request $request)
+    {
+        $kategorija = Kategorija::all();
+       // $egzaminas = Egzaminas::all();
+        $kategorija_id = $request->input('kategorija');
+        $egzaminas =  DB::table('egzaminas')->select('egzaminas.*')
+                                    ->where('kategorija','=', $kategorija_id)->get();
+        return view('registrationToExam', compact('egzaminas', 'kategorija'));
+    }
     public function addInstructor(Request $request)
     {
         $darbuotojas = Darbuotojas::all();
@@ -57,7 +66,7 @@ class ExamController extends Controller
             ['kelias' => $kelias,'laikas' => $laikas, 'ilgis' => $ilgis ]
         );
 
-        return view('registrationToExam',compact('marsrutas'));
+        return view('route',compact('marsrutas'));
     }
 
     public function registerToExam(Request $request)

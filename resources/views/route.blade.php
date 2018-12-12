@@ -35,7 +35,7 @@
                     <th>Kelias</th>
                     <th>Laikas</th>
                     <th>Ilgis</th>
-                    <th>Atčaukti</th>
+                    <th>Atšaukti</th>
                 </tr>
                 </thead>
                 <tbody>
