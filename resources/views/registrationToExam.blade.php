@@ -65,7 +65,7 @@
                     </tr>
                 @endforeach
                 @else
-                  <h3>Klaida tokių egzaminų nėra</h3>
+                  <h3 style="color:red;">Klaida: tokių egzaminų nėra</h3>
                 @endif
                 </tbody>
             </table>
