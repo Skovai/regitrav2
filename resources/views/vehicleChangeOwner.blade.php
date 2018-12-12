@@ -12,6 +12,7 @@
         
         <form method='post' action="{{action('VehicleController@vehicleChangeOwnerPage')}}">
                 @csrf
+                <input type="hidden" value="{{ $id }}" name="id">   <!-- TPID -->
                 <input type="text" name="naujasSavininkas" size="50" id="naujasSavininkas" placeholder="Įveskite naujo savininko vardą / pavardę / asmens kodą">
             <input type='submit' name='ok' value='Ieškoti'>
         </form>

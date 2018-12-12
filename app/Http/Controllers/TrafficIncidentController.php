@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\TransportoPriemone;
 use App\EismoIvykis;
-use App\dalyvauja;
+use App\TransportoPriemonesEismoIvykis;
 
 class TrafficIncidentController extends Controller
 {
@@ -22,8 +22,8 @@ class TrafficIncidentController extends Controller
     public function trafficIncidentPage(Request $request)
     {
         $id = $request->input('id');
-        $eismoIvykis = DB::table('eismo_ivykis')->join('dalyvauja', 'eismo_ivykis.id', '=', 'dalyvauja.FK_EismoIvykis' )
-                                                ->join('transporto_priemone', 'dalyvauja.FK_TransportoPriemone', '=', 'transporto_priemone.id')
+        $eismoIvykis = DB::table('eismo_ivykis')->join('transporto_priemones_eismo_ivykis', 'eismo_ivykis.id', '=', 'transporto_priemones_eismo_ivykis.FK_EismoIvykis' )
+                                                ->join('transporto_priemone', 'transporto_priemones_eismo_ivykis.FK_TransportoPriemone', '=', 'transporto_priemone.id')
                                                 ->select('eismo_ivykis.*')
                                                 ->where('transporto_priemone.id', '=', $id)->get();
         return view('trafficIncident',compact('eismoIvykis', 'id'));
@@ -45,9 +45,9 @@ class TrafficIncidentController extends Controller
         $aprasas = $request->input('aprasas');
         $pareigunai = $request->input('pareigunai');
         $ivykioId = DB::table('eismo_ivykis')->insertGetId(['data' => $data, 'laikas' => $laikas, 'vieta' => $vieta, 'aprasas' => $aprasas, 'pareigunai' => $pareigunai]);
-        DB::table('dalyvauja')->insert(['FK_EismoIvykis' => $ivykioId, 'FK_TransportoPriemone' => $id]);
-        $eismoIvykis = DB::table('eismo_ivykis')->join('dalyvauja', 'eismo_ivykis.id', '=', 'dalyvauja.FK_EismoIvykis' )
-                                                ->join('transporto_priemone', 'dalyvauja.FK_TransportoPriemone', '=', 'transporto_priemone.id')
+        DB::table('transporto_priemones_eismo_ivykis')->insert(['FK_EismoIvykis' => $ivykioId, 'FK_TransportoPriemone' => $id]);
+        $eismoIvykis = DB::table('eismo_ivykis')->join('transporto_priemones_eismo_ivykis', 'eismo_ivykis.id', '=', 'transporto_priemones_eismo_ivykis.FK_EismoIvykis' )
+                                                ->join('transporto_priemone', 'transporto_priemones_eismo_ivykis.FK_TransportoPriemone', '=', 'transporto_priemone.id')
                                                 ->select('eismo_ivykis.*')
                                                 ->where('transporto_priemone.id', '=', $id)->get();
         return view('trafficIncident',compact('eismoIvykis', 'id'));
@@ -59,9 +59,9 @@ class TrafficIncidentController extends Controller
         $id = $request->input('id');
         $valstybinisNr = $request->input('valstybinisNr');
         $addedTPID = DB::table('transporto_priemone')->select('id')->where('valstybinisNr', '=', $valstybinisNr)->first()->id;
-        DB::table('dalyvauja')->insert(['FK_EismoIvykis' => $ivykioId, 'FK_TransportoPriemone' => $addedTPID]);
-        $eismoIvykis = DB::table('eismo_ivykis')->join('dalyvauja', 'eismo_ivykis.id', '=', 'dalyvauja.FK_EismoIvykis' )
-                                                ->join('transporto_priemone', 'dalyvauja.FK_TransportoPriemone', '=', 'transporto_priemone.id')
+        DB::table('transporto_priemones_eismo_ivykis')->insert(['FK_EismoIvykis' => $ivykioId, 'FK_TransportoPriemone' => $addedTPID]);
+        $eismoIvykis = DB::table('eismo_ivykis')->join('transporto_priemones_eismo_ivykis', 'eismo_ivykis.id', '=', 'transporto_priemones_eismo_ivykis.FK_EismoIvykis' )
+                                                ->join('transporto_priemone', 'transporto_priemones_eismo_ivykis.FK_TransportoPriemone', '=', 'transporto_priemone.id')
                                                 ->select('eismo_ivykis.*')
                                                 ->where('transporto_priemone.id', '=', $id)->get();
         return view('trafficIncident',compact('eismoIvykis', 'id'));

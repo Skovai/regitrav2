@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateDalyvaujaTable extends Migration
+class CreateTransportoPriemonesEismoIvykisTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateDalyvaujaTable extends Migration
      */
     public function up()
     {
-        Schema::create('dalyvauja', function (Blueprint $table) {
+        Schema::create('transporto_priemones_eismo_ivykis', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('FK_EismoIvykis')->index();
             $table->foreign('FK_EismoIvykis')->references('id')->on('eismo_ivykis');
@@ -30,6 +30,6 @@ class CreateDalyvaujaTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('dalyvauja');
+        Schema::dropIfExists('transporto_priemones_eismo_ivykis');
     }
 }

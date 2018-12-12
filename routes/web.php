@@ -48,7 +48,7 @@ Route::post('/instructor', 'ExamController@addInstructor');
 Route::get('/route', 'AccountController@routePage');
 Route::post('/route/create', 'ExamController@routeCreate');
 Route::post('/route/delete', 'ExamController@routeDelete');
-Route::get('/trafficIncident', 'TrafficIncidentController@trafficIncidentPage');
+Route::post('/trafficIncident', 'TrafficIncidentController@trafficIncidentPage');
 Route::post('/trafficIncidentAdd', 'TrafficIncidentController@trafficIncidentAddPage');
 Route::post('/trafficIncidentAdd/success', 'TrafficIncidentController@trafficIncidentAdd');
 Route::post('/trafficIncidentInclude', 'TrafficIncidentController@includeLicensePlate');
