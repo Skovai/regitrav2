@@ -34,6 +34,8 @@ Route::get('/vehicle', 'VehicleController@vehiclePage');
 Route::post('/vehicleCheck', 'VehicleController@vehicleCheckPage');
 Route::post('/vehicleCheckAdd', 'VehicleController@vehicleCheckAddPage');
 Route::post('/vehicleCheckAdd/success', 'VehicleController@vehicleCheckAdd');
+Route::post('/vehicleChangeOwner', 'VehicleController@vehicleChangeOwnerPage');
+Route::post('/vehicleChangeOwner/success', 'VehicleController@vehicleChangeOwner');
 Route::post('/vehicleDelete', 'VehicleController@vehicleDeletePage');
 Route::post('/vehiclePlateEdit', 'VehicleController@licensePlateEditPage');
 Route::post('/vehicleInfo', 'VehicleController@vehicleInfoPage');

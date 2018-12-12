@@ -89,6 +89,12 @@
             </div>
         </div>
         
+    <form method="post" action="{{action('VehicleController@vehicleChangeOwnerPage')}}">
+        @csrf
+        <input type="hidden" value="{{ $key->id }}" name="id">
+        <button type="submit">Perregistruoti TP</button>
+    </form>     
+    
     <form method="post" action="{{action('VehicleController@vehicleDeletePage')}}">
         @csrf
         <input type="hidden" value="{{ $key->id }}" name="id">
