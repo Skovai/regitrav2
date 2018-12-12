@@ -16,6 +16,7 @@ Route::get('/', 'AccountController@index');
 Route::get('/main', 'AccountController@mainPage');
 // LVL 2
 Route::get('/adminFunction', 'AccountController@adminFunctionPage');
+Route::post('/message', 'ClientController@getMessages');
 Route::get('/registrationExamInfo', 'AccountController@registrationExamInfoPage');
 Route::get('/registrationToExam', 'AccountController@registrationToExamPage');
 Route::post('/registrationToExam/register', 'ExamController@registerToExam');
@@ -72,6 +73,6 @@ Route::get('/timetableMessagePage', 'AccountController@timetableMessagePage');
 // Bonus 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/main', 'HomeController@index')->name('main');
 
 Route::get('/logout', 'Auth\LoginController@logout');

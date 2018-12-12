@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use App\Zinute;
 
 class ClientController extends Controller
 {
@@ -29,6 +30,11 @@ class ClientController extends Controller
             , 'gimimo_data' => $gimimoData, 'e_pastas' => $pastas , 'FK_Darbuotojas' => NULL, 'FK_Pirisijungimo_id' => $id ]
         );
         return view('main');
+    }
+    
+    public function getMessages(Request $request)
+    {
+        return view('message');
     }
 
     /**
