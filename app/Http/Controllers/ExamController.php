@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\EgzaminuojamasKlientas;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Egzaminas;
@@ -16,8 +17,9 @@ class ExamController extends Controller
 
     public function registrationToExamPage()
     {
+        $kategorija = Kategorija::all();
         $egzaminas = Egzaminas::all();
-        return view('registrationToExam', compact('egzaminas'));
+        return view('registrationToExam', compact('egzaminas', 'kategorija'));
     }
     /**
      * Display a listing of the resource.
@@ -27,6 +29,14 @@ class ExamController extends Controller
     public function index()
     {
 
+    }
+    public function registrationToExamDelete(Request $request)
+    {
+        $egzaminas =  Egzaminas::all();
+        $egzaminuojamas_klientas = EgzaminuojamasKlientas::all();
+        $id = $request->input('id');
+        DB::table('egzaminuojamas_klientas')->where('id','=', $id)->delete();
+        return view('registrationExamInfo', compact('egzaminas', 'egzaminuojamas_klientas'));
     }
     public function showExamsByCategory(Request $request)
     {
@@ -46,6 +56,8 @@ class ExamController extends Controller
         DB::table('klientas')->where('id', $klientas_id)->update(['FK_Darbuotojas' => $darbuotojas_id]);
         return view('instructor', compact('darbuotojas', 'klientas'));
     }
+
+
 
     public function routeDelete(Request $request)
     {
@@ -71,6 +83,7 @@ class ExamController extends Controller
 
     public function registerToExam(Request $request)
     {
+        $kategorija = Kategorija::all();
         $egzaminas = Egzaminas::all();
         $id = Auth::user()->getAuthIdentifier();
         $klientasId = DB::table('klientas')->where('FK_Pirisijungimo_id', $id)->select('id')->pluck('id')->first();
@@ -79,7 +92,7 @@ class ExamController extends Controller
             ['FK_klientas' => $klientasId,'FK_egzaminas' => $egzaminas_id ]
         );
 
-        return view('registrationToExam',compact('egzaminas'));
+        return view('registrationToExam',compact('egzaminas', 'kategorija'));
     }
     public function examCreate(Request $request)
     {

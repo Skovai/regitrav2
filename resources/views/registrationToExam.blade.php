@@ -45,6 +45,8 @@
                     <th>Data</th>
                     <th>Laikas</th>
                     <th>Vieta</th>
+                    <th>Kategorija</th>
+                    <th>Tipas</th>
                     <th>Registruotis</th>
                 </tr>
                 </thead>
@@ -55,6 +57,8 @@
                         <td>{{ $key->data }}</td>
                         <td>{{ $key->pradzia }}</td>
                         <td>{{ $key->vieta }}</td>
+                        <td>{{ $key->kategorija }}</td>
+                        <td>{{ $key->tipas }}</td>
                         <td>
                             <form method="post"  action ="{{action('ExamController@registerToExam')}}">
                                 @csrf
