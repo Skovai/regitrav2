@@ -11,6 +11,7 @@ use App\Egzaminas;
 use App\Kategorija;
 use App\Inventorius;
 use App\Marsrutas;
+use App\EgzaminuojamasKlientas;
 use Illuminate\Support\Facades\Schema;
 
 class AccountController extends Controller
@@ -34,8 +35,9 @@ class AccountController extends Controller
     }
     public function registrationExamInfoPage()
     {
+        $egzaminuojamas_klientas = EgzaminuojamasKlientas::all();
         $egzaminas =  Egzaminas::all();
-        return view('registrationExamInfo',compact('egzaminas'));
+        return view('registrationExamInfo',compact('egzaminas', 'egzaminuojamas_klientas'));
     }
 
     public function accountsPage()
@@ -111,8 +113,9 @@ class AccountController extends Controller
     }
     public function registrationToExamPage()
     {
+        $kategorija = Kategorija::all();
         $egzaminas = Egzaminas::all();
-        return view('registrationToExam' ,compact('egzaminas'));
+        return view('registrationToExam' ,compact('egzaminas', 'kategorija'));
     }
     public function instructorPage()
     {
