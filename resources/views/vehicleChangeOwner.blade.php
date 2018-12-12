@@ -37,7 +37,7 @@
                                             <td>{{ $key->vardas }}</td>
                                             <td>{{ $key->pavarde }}</td>
                                             <td>{{ $key->tel_nr }}</td>
-                                            <form method="post" action="{{action('VehicleController@vehicleChangeOwner')}}">
+                                            <form method="post" action="{{action('VehicleController@vehicleChangeOwnerSubmit')}}">
                                                     @csrf
                                                     <td>
                                                             <input type="hidden" value="{{ $id }}" name="id">               <!-- TPID --> 

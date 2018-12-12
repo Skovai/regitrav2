@@ -20,10 +20,11 @@
                                         @if($zinute->tipas=2)
                                             <td>{{ $key->zinute }}</td>
                                             <td>
-                                            <form method="post" action="{{action('AccountController@accountsPage')}}">
+                                            <form method="post" action="{{action('VehicleController@vehicleChangeOwnerAccept')}}">
                                                     @csrf
-                                                    
-                                                            <input type="hidden" value="{{ $key->id }}" name="id">
+                                                            <input type="hidden" value="{{ $key->id }}" name="messageId">
+                                                            <input type="hidden" value="{{ $key->FK_TransportoPriemone }}" name="id">
+                                                            <input type="hidden" value="{{ $key->FK_KlientasNaujas }}" name="newClientId">
                                                             <button name="difficulty" style="background-color:green; color:white; border:none"
                                                                     value="3" type="submit">
                                                                     Patvirtinti
@@ -31,7 +32,7 @@
                                             </form>
                                             </td>
                                             <td>
-                                            <form method="post" action="{{action('AccountController@accountsPage')}}">
+                                            <form method="post" action="{{action('VehicleController@vehicleChangeOwnerDecline')}}">
                                                     @csrf
                                                             <input type="hidden" value="{{ $key->id }}" name="id">
                                                             <button name="difficulty" style="background-color:red; color:black; border:none"
