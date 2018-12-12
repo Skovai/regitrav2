@@ -65,6 +65,6 @@ Route::get('/timetableMessagePage', 'AccountController@timetableMessagePage');
 // Bonus 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/main', 'HomeController@index')->name('main');
 
 Route::get('/logout', 'Auth\LoginController@logout');
