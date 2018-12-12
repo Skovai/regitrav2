@@ -144,12 +144,18 @@ class VehicleController extends Controller
         DB::table('transporto_priemone')->where('id', '=', $id)->update(['FK_Klientas' => $naujasSavininkas]);
         $zinutesId = $request->input('messageId');
         DB::table('zinute')->where('id', '=', $zinutesId)->delete();
-        return view('main',compact('transportoPriemone'));
+        $klientoId = $request->input('clientId');
+        $zinute = DB::table('zinute')->where('FK_KlientasSenas', '=', $klientoId)->orWhere('FK_Klientas', '=', $klientoId)->get();
+        return view('message',compact('zinute'));
     }
     
     public function vehicleChangeOwnerDecline(Request $request)
     {
-        return view('vehicleInfo',compact('transportoPriemone'));
+        $zinutesId = $request->input('messageId');
+        DB::table('zinute')->where('id', '=', $zinutesId)->delete();
+        $klientoId = $request->input('clientId');
+        $zinute = DB::table('zinute')->where('FK_KlientasSenas', '=', $klientoId)->orWhere('FK_Klientas', '=', $klientoId)->get();
+        return view('message',compact('zinute'));
     }
     
     public function create()
