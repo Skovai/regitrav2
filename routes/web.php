@@ -23,10 +23,13 @@ Route::post('/registrationToExam/create', 'ExamController@examCreate');
 Route::get('/vehicleInfo', 'AccountController@vehicleInfoPage');
 Route::get('/accounts', 'AccountController@accountsPage');
 Route::get('/driversLicense', 'AccountController@driversLicensePage');
+Route::post('/registrationToExam', 'ExamController@showExamsByCategory');
+
 // LVL 3
 Route::get('/employee', 'AccountController@employeePage');
 Route::get('/inventory', 'AccountController@inventoryPage');
 Route::post('/inventory/create', 'EmployeeController@inventoryCreate');
+
 
 Route::get('/client', 'AccountController@clientPage');
 Route::get('/examTimetable', 'AccountController@examTimetablePage');
@@ -34,6 +37,8 @@ Route::get('/vehicle', 'VehicleController@vehiclePage');
 Route::post('/vehicleCheck', 'VehicleController@vehicleCheckPage');
 Route::post('/vehicleCheckAdd', 'VehicleController@vehicleCheckAddPage');
 Route::post('/vehicleCheckAdd/success', 'VehicleController@vehicleCheckAdd');
+Route::post('/vehicleChangeOwner', 'VehicleController@vehicleChangeOwnerPage');
+Route::post('/vehicleChangeOwner/success', 'VehicleController@vehicleChangeOwner');
 Route::post('/vehicleDelete', 'VehicleController@vehicleDeletePage');
 Route::post('/vehiclePlateEdit', 'VehicleController@licensePlateEditPage');
 Route::post('/vehicleInfo', 'VehicleController@vehicleInfoPage');
@@ -43,7 +48,7 @@ Route::post('/instructor', 'ExamController@addInstructor');
 Route::get('/route', 'AccountController@routePage');
 Route::post('/route/create', 'ExamController@routeCreate');
 Route::post('/route/delete', 'ExamController@routeDelete');
-Route::get('/trafficIncident', 'TrafficIncidentController@trafficIncidentPage');
+Route::post('/trafficIncident', 'TrafficIncidentController@trafficIncidentPage');
 Route::post('/trafficIncidentAdd', 'TrafficIncidentController@trafficIncidentAddPage');
 Route::post('/trafficIncidentAdd/success', 'TrafficIncidentController@trafficIncidentAdd');
 Route::post('/trafficIncidentInclude', 'TrafficIncidentController@includeLicensePlate');

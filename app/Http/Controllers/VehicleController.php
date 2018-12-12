@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\TransportoPriemone;
 use App\TechnineApziura;
+use App\Klientas;
 
 class VehicleController extends Controller
 {
@@ -100,6 +101,39 @@ class VehicleController extends Controller
         DB::table('transporto_priemone')->where('id', '=', $id)->delete();
         $transportoPriemone = TransportoPriemone::all();
         return view('vehicle',compact('transportoPriemone'));
+    }
+    
+    public function vehicleChangeOwnerPage(Request $request)
+    {
+        $naujasSavininkas = "";
+        $id = $request->input('id');
+        if(($request->input('naujasSavininkas'))!=null)
+        {
+            $naujasSavininkas = $request->input('naujasSavininkas');
+        }
+        $klientas = DB::table('klientas')
+                ->where('asmens_kodas', 'LIKE', "%".$naujasSavininkas."%")
+                ->orWhere('vardas', 'LIKE', "%".$naujasSavininkas."%")
+                ->orWhere('pavarde', 'LIKE', "%".$naujasSavininkas."%")->get();
+        return view('vehicleChangeOwner',compact('klientas', 'id'));
+    }
+    
+    public function vehicleChangeOwner(Request $request)
+    {
+        $id = $request->input('id'); //TPID
+        $naujasSavininkas = $request->input('newClientId');
+        $naujoVardas = DB::table('klientas')->where('id', '=', $naujasSavininkas)->first()->vardas;
+        $naujoPavarde = DB::table('klientas')->where('id', '=', $naujasSavininkas)->first()->pavarde;
+        $senasSavininkas = DB::table('transporto_priemone')->where('id', '=', $id)->first()->FK_Klientas;
+        $tpMarke = DB::table('transporto_priemone')->where('id', '=', $id)->first()->marke;
+        $tpModelis = DB::table('transporto_priemone')->where('id', '=', $id)->first()->modelis;
+        $valstNr = DB::table('transporto_priemone')->where('id', '=', $id)->first()->valstybinisNr;
+        DB::table('zinute')->insert(['tipas' => 1, 
+                                     'zinute' => "Jūsų automobilis ".$tpMarke." ".$tpModelis.", valstybinis nr. ".$valstNr." yra perregistruojamas naujam savininkui: ".$naujoVardas." ".$naujoPavarde,
+                                     'FK_KlientasSenas' => $senasSavininkas, 
+                                     'FK_KlientasNaujas' => $naujasSavininkas]);
+        $transportoPriemone =  TransportoPriemone::all()->where('id', '=', $id);
+        return view('vehicleInfo',compact('transportoPriemone'));
     }
     
     public function create()

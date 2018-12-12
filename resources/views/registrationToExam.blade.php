@@ -19,12 +19,25 @@
     ?>
     <ul>
         <li><a href="{{action('AccountController@examTimetablePage')}}">Egzamino tvarkaraščio langas</a></li>
-    </ul>
+    </ul> <!-- atrodo šito nebereikia, bet reiks pakeisti registracijos į egzaminą sequence diagram -->
+
+
     <div class="panel panel-default">
         <div class="panel-heading">Egzaminai, į kuriuos galite registruotis</div>
         <div class="panel-body">
-            <form action ="" method="post">
+            <form action ="{{action('ExamController@showExamsByCategory')}}" method="post">
                 <!--TODO dropdownas pasirinkti,kokio tipo egzaminai bus rodomi ir pagal tą reikšmę rodyti egzaminus tinkamus-->
+              @csrf
+                <label for="kategorija" >Kategorija</label>
+                <select id="kategorija" name="kategorija">
+                    @foreach ($kategorija as $key)
+                        <option value="{{ $key->id }}">{{ $key->name }}</option>
+                    @endforeach
+                </select>
+                <button name="difficulty" class="btn btn-danger" style="width: 80px"
+                        value="3" type="submit">
+                    Filtruoti
+                </button>
             </form>
             <table class="table">
                 <thead>
@@ -36,6 +49,7 @@
                 </tr>
                 </thead>
                 <tbody>
+                @if($egzaminas->count() > 0)
                 @foreach ($egzaminas as $key)
                     <tr>
                         <td>{{ $key->data }}</td>
@@ -50,6 +64,9 @@
                         </td>
                     </tr>
                 @endforeach
+                @else
+                  <h3 style="color:red;">Klaida: tokių egzaminų nėra</h3>
+                @endif
                 </tbody>
             </table>
 
