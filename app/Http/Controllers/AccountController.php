@@ -11,6 +11,7 @@ use App\Egzaminas;
 use App\Kategorija;
 use App\Inventorius;
 use App\Marsrutas;
+use App\EgzaminuojamasKlientas;
 use Illuminate\Support\Facades\Schema;
 
 class AccountController extends Controller
