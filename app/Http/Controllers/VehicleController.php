@@ -49,7 +49,7 @@ class VehicleController extends Controller
         $FK_Klientas = $request->input('FK_Klientas');
         //$kategorija = $request->input('kategorija');
         DB::table('transporto_priemone')->insert(
-            ['valstybinisNr' => $valstybinisNr, 'VIN' => $VIN, 'marke' => $marke, 'modelis' => $modelis, 'spalva' => $spalva, 'galingumas' => $galingumas, 'kategorija' => 1, 'FK_Klientas' => 1]
+            ['valstybinisNr' => $valstybinisNr, 'VIN' => $VIN, 'marke' => $marke, 'modelis' => $modelis, 'spalva' => $spalva, 'galingumas' => $galingumas, 'kategorija' => 1, 'FK_Klientas' => $FK_Klientas]
         );
         $transportoPriemone = TransportoPriemone::all();
         return view('vehicle',compact('transportoPriemone'));
