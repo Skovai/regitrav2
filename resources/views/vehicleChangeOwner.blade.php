@@ -37,17 +37,17 @@
                                             <td>{{ $key->vardas }}</td>
                                             <td>{{ $key->pavarde }}</td>
                                             <td>{{ $key->tel_nr }}</td>
-<!--                                            <form method="post" action="{{action('VehicleController@vehicleChangeOwner')}}">
+                                            <form method="post" action="{{action('VehicleController@vehicleChangeOwner')}}">
                                                     @csrf
                                                     <td>
-                                                            <input type="hidden" value="{{ $id }}" name="id">         TPID 
-                                                            <input type="hidden" value="{{ $key->id }}" name="clientId">    Kliento ID 
-                                                            <button name="difficulty" class="btn btn-danger"
+                                                            <input type="hidden" value="{{ $id }}" name="id">               <!-- TPID --> 
+                                                            <input type="hidden" value="{{ $key->id }}" name="newClientId">    <!-- Naujo savininko ID -->
+                                                            <button name="difficulty" 
                                                                     value="3" type="submit">
-                                                                    X
+                                                                    Pasirinkti
                                                             </button>
                                                     </td>
-                                            </form>-->
+                                            </form>
                                     </tr>
                                     @endforeach
                                     </tbody>
