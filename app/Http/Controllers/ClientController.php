@@ -34,7 +34,9 @@ class ClientController extends Controller
     
     public function getMessages(Request $request)
     {
-        return view('message');
+        $klientoId = $request->input('klientoId');
+        $zinute = DB::table('zinute')->where('FK_KlientasSenas', '=', $klientoId)->orWhere('FK_Klientas', '=', $klientoId)->get();
+        return view('message', compact('zinute'));
     }
 
     /**

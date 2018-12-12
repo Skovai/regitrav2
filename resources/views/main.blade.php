@@ -8,8 +8,11 @@
             <?php
                 $klientoId = DB::table('klientas')->where('FK_Pirisijungimo_id', '=', $id)->first()->id;
             ?>
-            <h1><a href="{{action('ClientController@getMessages')}}" style="color:green">🕭({{ DB::table('zinute')->where('FK_KlientasSenas', '=', "$klientoId")->count() }})</a></h1>
-            
+            <form method="post" action="{{action('ClientController@getMessages')}}">
+                @csrf
+                <input type="hidden" value="{{ $klientoId }}" name="klientoId">
+                <h1><button type="submit" style="color:green; border:none; background:none">🕭({{ DB::table('zinute')->where('FK_KlientasSenas', '=', "$klientoId")->count() }})</button></h1>
+            </form>
             <h1>Pagrindinis langas</h1>
             @if(DB::table('darbuotojas')->where('FK_Pirisijungimo_id', '=', $id)->exists())
             <li><a href="{{action('AccountController@adminFunctionPage')}}">Administratoriaus funkcijų langas</a></li>
