@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\TransportoPriemone;
 use App\TechnineApziura;
 use App\Klientas;
+use App\Kategorija;
 
 class VehicleController extends Controller
 {
@@ -47,9 +48,9 @@ class VehicleController extends Controller
         $spalva = $request->input('spalva');
         $galingumas = $request->input('galingumas');
         $FK_Klientas = $request->input('FK_Klientas');
-        //$kategorija = $request->input('kategorija');
+        $kategorija = $request->input('kategorija');
         DB::table('transporto_priemone')->insert(
-            ['valstybinisNr' => $valstybinisNr, 'VIN' => $VIN, 'marke' => $marke, 'modelis' => $modelis, 'spalva' => $spalva, 'galingumas' => $galingumas, 'kategorija' => 1, 'FK_Klientas' => $FK_Klientas]
+            ['valstybinisNr' => $valstybinisNr, 'VIN' => $VIN, 'marke' => $marke, 'modelis' => $modelis, 'spalva' => $spalva, 'galingumas' => $galingumas, 'kategorija' => $kategorija, 'FK_Klientas' => $FK_Klientas]
         );
         $transportoPriemone = TransportoPriemone::all();
         return view('vehicle',compact('transportoPriemone'));
@@ -57,7 +58,9 @@ class VehicleController extends Controller
     
     public function licensePlateRegistrationPage()
     {
-        return view('licensePlateRegistration');
+        $kategorija = Kategorija::all();
+        $klientas = DB::table('klientas')->orderBy('Pavarde', 'ASC')->get();
+        return view('licensePlateRegistration', compact('kategorija', 'klientas'));
     }
     
     public function licensePlateEditPage(Request $request)

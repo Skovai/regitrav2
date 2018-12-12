@@ -48,7 +48,21 @@
                                 <td>
                                 <label for="FK_Klientas">Klientas</label></td>
                                 <td>
-                                <input id="FK_Klientas"type="int" name="FK_Klientas"></td>
+                                <select name="FK_Klientas">
+                                @foreach ($klientas as $key)
+                                <option value="{{ $key->id }}">{{ $key->vardas }} {{ $key->pavarde }}, a.k. {{ $key->asmens_kodas }}</option>
+                                @endforeach
+                                </select>
+                            </tr>
+                            <tr>
+                                <td>
+                                <label for="kategorija">Kategorija</label></td>
+                                <td>
+                                <select name="kategorija">
+                                @foreach ($kategorija as $key)
+                                <option value="{{ $key->id }}">{{ $key->name }}</option>
+                                @endforeach
+                                </select>
                             </tr>
                             </table>
                         <button name="difficulty" class="btn btn-danger" style="width: 80px"
