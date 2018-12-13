@@ -28,15 +28,26 @@ class VehicleController extends Controller
     
     public function vehiclePage()
     {
+        $errorMessage = "";
         $transportoPriemone =  TransportoPriemone::all();
-        return view('vehicle',compact('transportoPriemone'));
+        return view('vehicle', compact('transportoPriemone', 'errorMessage'));
     }
     
     public function vehicleInfoPage(Request $request)
     {
         $valstybinisNr = $request['valstybinisNr'];
         $transportoPriemone =  TransportoPriemone::all()->where('valstybinisNr', '=', $valstybinisNr); //'LIKE', "%".$valstybinisNr."%")->();
-        return view('vehicleInfo',compact('transportoPriemone', 'valstybinisNr'));
+        $count = DB::table('transporto_priemone')->where('valstybinisNr', '=', $valstybinisNr)->count();
+        if($count!=0)
+        {
+            return view('vehicleInfo',compact('transportoPriemone', 'valstybinisNr'));
+        }
+        else
+        {
+            $transportoPriemone =  TransportoPriemone::all();
+            $errorMessage = "Valstybinis nr. nerastas";
+            return view('vehicle', compact('transportoPriemone', 'errorMessage'));
+        }
     }
     
     public function vehicleCreatePage(Request $request)
@@ -68,8 +79,17 @@ class VehicleController extends Controller
         $id = $request->input('id');
         $transportoPriemone =  TransportoPriemone::all()->where('id', '=', $id);
         $valstybinisNr = $request['valstybinisNr'];
-        DB::table('transporto_priemone')->where('id', '=', $id)->update(['valstybinisNr' => $valstybinisNr]);
-        return view('vehicleInfo',compact('transportoPriemone', 'valstybinisNr'));
+        $count = DB::table('transporto_priemone')->where('valstybinisNr', '=', $valstybinisNr)->count();
+        if($count==0)
+        {
+            DB::table('transporto_priemone')->where('id', '=', $id)->update(['valstybinisNr' => $valstybinisNr]);
+            $transportoPriemone =  TransportoPriemone::all()->where('id', '=', $id);
+            return view('vehicleInfo',compact('transportoPriemone', 'valstybinisNr'));
+        }
+        else
+        {
+            return view('vehicleInfo',compact('transportoPriemone', 'valstybinisNr'));
+        }
     }
     
     public function vehicleCheckPage(Request $request)

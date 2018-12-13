@@ -9,11 +9,19 @@
     $transportoPriemoneTable = DB::table('transporto_priemone')->where('id' ,'>' ,0)->select('id')->pluck('id')->reverse()->toArray();
 
     ?>
-        
-        <li><a href="{{action('AccountController@messagePage')}}">Sugeneruotas laiškas</a></li>
-        <li><a href="{{action('VehicleController@licensePlateRegistrationPage')}}">Registruoti transporto priemonę</a></li>
-        
-        <button type="button"  data-toggle="modal" data-target="#myModal">Ieškoti TP</button>
+        <form method="post" action="{{action('VehicleController@licensePlateRegistrationPage')}}">
+            @csrf
+            <button type="submit" style="width:210px">Registruoti transporto priemonę</button>
+        </form>
+    
+        @if($errorMessage!=null)
+        <div style="color:red"><b>{{ $errorMessage }}</b></div>
+        @else
+        <br>
+        @endif
+            
+    
+        <button type="button"  data-toggle="modal" data-target="#myModal" style="width:210px">Ieškoti TP valstybinio nr.</button>
 
         <!-- Modal -->
         <div class="modal fade" id="myModal" role="dialog">
@@ -40,6 +48,9 @@
             </div>
         </div>
 
+        <br>
+        <br>
+        
         <div class="panel panel-default">
                 <div class="panel-heading">Transporto priemonių sąrašas</div>
                 <div class="panel-body">
@@ -49,6 +60,7 @@
                                             <th>Valstybinis nr.</th>
                                             <th>Markė</th>
                                             <th>Modelis</th>
+                                            <th>Kategorija</th>
                                             <th>Savininkas</th>
                                     </tr>
                                     </thead>
@@ -58,17 +70,9 @@
                                             <td>{{ $key->valstybinisNr }}</td>
                                             <td>{{ $key->marke }}</td>
                                             <td>{{ $key->modelis }}</td>
-                                            <td>{{ $key->FK_Klientas }}</td>
-<!--                                            <form method="post" action="{{action('AccountController@accountsPageDelete')}}">
-                                                    @csrf
-                                                    <td>
-                                                            <input type="hidden" value="{{ $key->id }}" name="id">
-                                                            <button name="difficulty" class="btn btn-danger"
-                                                                    value="3" type="submit">
-                                                                    X
-                                                            </button>
-                                                    </td>
-                                            </form>-->
+                                            <td>{{ DB::table('kategorija')->where('id','=',$key->kategorija)->first()->name }} </td>    
+                                            <td>{{ DB::table('klientas')->where('id','=',$key->FK_Klientas)->first()->vardas }} 
+                                                {{ DB::table('klientas')->where('id','=',$key->FK_Klientas)->first()->pavarde }}</td>
                                     </tr>
                                     @endforeach
                                     </tbody>

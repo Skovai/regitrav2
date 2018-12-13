@@ -26,9 +26,10 @@
                                             <td>{{ $key->VIN }}</td>
                                             <td>{{ $key->marke }}</td>
                                             <td>{{ $key->modelis }}</td>
-                                            <td>{{ $key->FK_Klientas }}</td>
+                                            <td>{{ DB::table('klientas')->where('id','=',$key->FK_Klientas)->first()->vardas }} 
+                                                {{ DB::table('klientas')->where('id','=',$key->FK_Klientas)->first()->pavarde }}</td>
                                             <td>{{ $key->spalva }}</td>
-                                            <td>{{ $key->kategorija }}</td>
+                                            <td>{{ DB::table('kategorija')->where('id','=',$key->kategorija)->first()->name }} </td>
                                             <td>{{ $key->galingumas }}</td>
                                            
 <!--                                            <form method="post" action="{{action('AccountController@accountsPageDelete')}}">
@@ -101,5 +102,13 @@
         <button type="submit">Išregistruoti TP</button>
     </form>
     </table>
-        
+    
+    <br>
+    
+<!--<form method="post" action="{{action('VehicleController@vehiclePage')}}">
+    @csrf
+    <button type="submit">Atgal</button>
+</form>    -->
+    
 @endsection/
+
