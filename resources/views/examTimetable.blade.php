@@ -29,10 +29,20 @@
                 <input id="kaina"type="number" name="kaina">
 
                 <label for="vieta">vieta</label>
-                <input id="vieta"type="text" name="vieta">
+                <select id="vieta" name="vieta">
+                    <option value="Vilnius">Vilnius</option>
+                    <option value="Kaunas">Kaunas</option>
+                    <option value="Klaipėda">Klaipėda</option>
+                    <option value="Šiauliai">Šiauliai</option>
+                    <option value="Panevėžys">Panevėžys</option>
+                </select>
 
                 <label for="tipas">tipas</label>
-                <input id="tipas"type="text" name="tipas">
+                <select id="tipas" name="tipas">
+                    <option value="Teorija">Teorija</option>
+                    <option value="Vairavimas">Vairavimas</option>
+                </select>
+
 
                 <input id="arIslaikyta" type="hidden" name="arIslaikyta" value="0"/>
                 <button name="difficulty" class="btn btn-danger" style="width: 80px"

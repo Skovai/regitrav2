@@ -7,8 +7,13 @@
     <?php
 
     $transportoPriemoneTable = DB::table('transporto_priemone')->where('id' ,'>' ,0)->select('id')->pluck('id')->reverse()->toArray();
+    if(Auth::check()){
+        $id = Auth::user()->getAuthIdentifier();
+        $klientasid = DB::table('klientas')->where('FK_Pirisijungimo_id', $id)->select('id')->pluck('id')->first();
 
+    }
     ?>
+    @if(DB::table('darbuotojas')->where('FK_Pirisijungimo_id', '=', $id)->exists())
         <form method="post" action="{{action('VehicleController@licensePlateRegistrationPage')}}">
             @csrf
             <button type="submit" style="width:210px">Registruoti transporto priemonę</button>
@@ -47,6 +52,7 @@
 
             </div>
         </div>
+        @endif
 
         <br>
         <br>
@@ -66,6 +72,7 @@
                                     </thead>
                                     <tbody>
                                     @foreach ($transportoPriemone as $key)
+                                        @if(DB::table('transporto_priemone')->where('FK_Klientas', '=', $klientasid)->exists())
                                     <tr>
                                             <td>{{ $key->valstybinisNr }}</td>
                                             <td>{{ $key->marke }}</td>
@@ -74,6 +81,7 @@
                                             <td>{{ DB::table('klientas')->where('id','=',$key->FK_Klientas)->first()->vardas }} 
                                                 {{ DB::table('klientas')->where('id','=',$key->FK_Klientas)->first()->pavarde }}</td>
                                     </tr>
+                                    @endif
                                     @endforeach
                                     </tbody>
                             </table>

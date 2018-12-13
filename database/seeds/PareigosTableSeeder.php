@@ -13,7 +13,7 @@ class PareigosTableSeeder extends Seeder
     public function run()
     {
         pareigos::create([
-            'name' => 'Admin',
+            'name' => 'Administratorius',
         ]);
 
         pareigos::create([

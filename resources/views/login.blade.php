@@ -52,6 +52,6 @@
             </div>
         </div>
     </div>
-    <li><a href="{{url('/register')}}">Registruotis</a></li>
+
 </div>
 @endsection
