@@ -108,8 +108,8 @@ class AccountController extends Controller
     public function examTimetablePage()
     {
         $kategorija =  Kategorija::all();
-
-        return view('examTimetable',compact('kategorija'));
+        $egzaminas =  Egzaminas::all();
+        return view('examTimetable',compact('egzaminas', 'kategorija' ));
     }
     public function registrationToExamPage()
     {

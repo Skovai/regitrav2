@@ -17,16 +17,11 @@
                                                        // ['FK_Klientas', '<', 1])->select('id')->pluck('id')->sortBy('data')->toArray();
   
     ?>
-    <ul>
-        <li><a href="{{action('AccountController@examTimetablePage')}}">Egzamino tvarkaraščio langas</a></li>
-    </ul> <!-- atrodo šito nebereikia, bet reiks pakeisti registracijos į egzaminą sequence diagram -->
-
 
     <div class="panel panel-default">
         <div class="panel-heading">Egzaminai, į kuriuos galite registruotis</div>
         <div class="panel-body">
             <form action ="{{action('ExamController@showExamsByCategory')}}" method="post">
-                <!--TODO dropdownas pasirinkti,kokio tipo egzaminai bus rodomi ir pagal tą reikšmę rodyti egzaminus tinkamus-->
               @csrf
                 <label for="kategorija" >Kategorija</label>
                 <select id="kategorija" name="kategorija">

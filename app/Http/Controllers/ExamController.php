@@ -108,7 +108,8 @@ class ExamController extends Controller
         DB::table('egzaminas')->insert(
             ['kategorija' => $kat,'data' => $data, 'pradzia' => $pradzia, 'pabaiga' => $pabaiga, 'kaina' => $kaina, 'vieta' => $vieta, 'tipas' => $tipas, 'arIslaikyta' => $arIslaikyta, 'FK_Marsrutas'  => 1, 'FK_Klientas' => 1 ]
         );
-        return view('examTimetable',compact('kategorija'));
+        $egzaminas = Egzaminas::all();
+        return view('examTimetable',compact('egzaminas', 'kategorija'));
     }
 
 

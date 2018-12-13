@@ -2,7 +2,7 @@
 
 @section('title', 'Pagrindinis')
 @section('content')
-    <h1>Egzamino tvarkaraščio langas</h1>
+    <h1>Egzamino tvarkaraščio sudarymo langas</h1>
 
     <div class="panel panel-default">
         <div class="panel-heading">Pridėti egzamina</div>
@@ -40,6 +40,33 @@
                     Patvirtinti
                 </button>
             </form>
+
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Data</th>
+                    <th>Laikas</th>
+                    <th>Vieta</th>
+                    <th>Kategorija</th>
+                    <th>Tipas</th>
+                </tr>
+                </thead>
+                <tbody>
+                @if($egzaminas->count() > 0)
+                    @foreach ($egzaminas as $key)
+                        <tr>
+                            <td>{{ $key->data }}</td>
+                            <td>{{ $key->pradzia }}</td>
+                            <td>{{ $key->vieta }}</td>
+                            <td>{{ $key->kategorija }}</td>
+                            <td>{{ $key->tipas }}</td>
+                        </tr>
+                    @endforeach
+                @else
+                    <h3 style="color:red;">Klaida: egzaminų nėra</h3>
+                @endif
+                </tbody>
+            </table>
         </div>
     </div>
 @endsection
