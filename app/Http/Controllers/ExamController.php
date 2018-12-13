@@ -18,9 +18,10 @@ class ExamController extends Controller
     public function registrationToExamPage()
     {
         $error = false;
+        $message = '';
         $kategorija = Kategorija::all();
         $egzaminas = Egzaminas::all();
-        return view('registrationToExam', compact('egzaminas', 'kategorija', 'error'));
+        return view('registrationToExam', compact('egzaminas', 'kategorija', 'error', 'message'));
     }
     /**
      * Display a listing of the resource.
@@ -56,8 +57,10 @@ class ExamController extends Controller
         ])->select('id')->pluck('id')->first();
         var_dump($egzaminasPasirinktuLaiku);
        // $count = $egzaminaiPasirinktuLaiku->count();
-        if($egzaminasPasirinktuLaiku!=0) //jei tokiu laiku yra laisvų egzaminų
+        if($egzaminasPasirinktuLaiku != 'NULL') //jei tokiu laiku yra laisvų egzaminų
         {
+            print_r("as cia");
+            print_r($egzaminasPasirinktuLaiku);
             DB::table('egzaminuojamas_klientas')->where([
                 ['FK_egzaminas', '=', $egzaminoid],
                 ['FK_klientas', '=', $klientoid ]
@@ -85,13 +88,14 @@ class ExamController extends Controller
     }
     public function showExamsByCategory(Request $request)
     {
+        $message = '';
         $error = false;
         $kategorija = Kategorija::all();
        // $egzaminas = Egzaminas::all();
         $kategorija_id = $request->input('kategorija');
         $egzaminas =  DB::table('egzaminas')->select('egzaminas.*')
                                     ->where('kategorija','=', $kategorija_id)->get();
-        return view('registrationToExam', compact('egzaminas', 'kategorija', 'error'));
+        return view('registrationToExam', compact('egzaminas', 'kategorija', 'error', 'message'));
     }
     public function addInstructor(Request $request)
     {
@@ -130,16 +134,40 @@ class ExamController extends Controller
     public function registerToExam(Request $request)
     {
         $error =false;
+        $message ='';
         $kategorija = Kategorija::all();
         $egzaminas = Egzaminas::all();
         $id = Auth::user()->getAuthIdentifier();
         $klientasId = DB::table('klientas')->where('FK_Pirisijungimo_id', $id)->select('id')->pluck('id')->first();
         $egzaminas_id = $request->input('egzaminas_id');
-        DB::table('egzaminuojamas_klientas')->insert(
-            ['FK_klientas' => $klientasId,'FK_egzaminas' => $egzaminas_id ]
-        );
-        $error=true; //naudojamas parodyti pranešimą,kad registracija pavyko
-        return view('registrationToExam',compact('egzaminas', 'kategorija', 'error'));
+        //patikrinti ar klientas jau užsiregistravęs į to tipo egzaminą, jei taip - nebeleisti registruotis
+
+        $egzaminas_tipas =$request->input('egzaminas_tipas');
+        $egzaminas_kategorija =$request->input('egzaminas_kategorija');
+
+        $arJauUžsiregistravęs = DB::table('egzaminuojamas_klientas')
+                                            ->join('egzaminas', 'egzaminuojamas_klientas.FK_egzaminas','=','egzaminas.id')
+                                            ->where([
+                                                ['egzaminas.tipas', '=',$egzaminas_tipas],
+                                                ['egzaminas.kategorija', '=',$egzaminas_kategorija],
+                                                ['egzaminuojamas_klientas.FK_klientas','=', $klientasId],
+                                            ])->count();
+
+      //  SELECT COUNT(egzaminuojamas_klientas.id) FROM egzaminuojamas_klientas INNER JOIN egzaminas ON egzaminuojamas_klientas.FK_egzaminas = egzaminas.id
+       // WHERE egzaminas.tipas = 'praktika' AND egzaminas.kategorija = '15'AND egzaminuojamas_klientas.FK_klientas = '5';
+
+        if($arJauUžsiregistravęs == 0)
+        {
+            DB::table('egzaminuojamas_klientas')->insert(
+                ['FK_klientas' => $klientasId,'FK_egzaminas' => $egzaminas_id ]
+            );
+            $error=true; //naudojamas parodyti pranešimą,kad registracija pavyko
+        } else
+        {
+            $message = "Klaida: Jūs jau esate užsiregistravęs į tokio tipo ir kategorijos egzaminą";
+        }
+
+        return view('registrationToExam',compact('egzaminas', 'kategorija', 'error', 'message'));
     }
     public function examCreate(Request $request)
     {

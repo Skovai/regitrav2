@@ -21,6 +21,11 @@
     <div class="panel panel-default">
         <div class="panel-heading">Egzaminai, į kuriuos galite registruotis</div>
         <div class="panel-body">
+            @if($message != '')
+                <div class="alert alert-danger text-left">
+                    <span>{{$message}}</span>
+                </div>
+            @endif
             @if($error)
                 <div class="alert alert-success text-left">
                     <span>Jūsų registracija sėkminga</span>
@@ -63,6 +68,8 @@
                             <form method="post"  action ="{{action('ExamController@registerToExam')}}">
                                 @csrf
                                 <input name="egzaminas_id" type="hidden" value="{{ $key->id }}">
+                                <input name="egzaminas_tipas" type="hidden" value="{{ $key->tipas }}">
+                                <input name="egzaminas_kategorija" type="hidden" value="{{ $key->kategorija }}">
                                 <button type="submit"  class="btn btn-success">Registruotis</button>
                             </form>
                         </td>
