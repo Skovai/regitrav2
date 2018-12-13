@@ -52,6 +52,7 @@ Route::post('/instructor', 'ExamController@addInstructor');
 Route::get('/route', 'AccountController@routePage');
 Route::post('/route/create', 'ExamController@routeCreate');
 Route::post('/route/delete', 'ExamController@routeDelete');
+Route::post('/registrationExamInfo/update', 'ExamController@registeredExamUpdate');
 
 Route::post('/trafficIncident', 'TrafficIncidentController@trafficIncidentPage');
 Route::post('/trafficIncidentAdd', 'TrafficIncidentController@trafficIncidentAddPage');

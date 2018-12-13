@@ -30,15 +30,52 @@ class ExamController extends Controller
     {
 
     }
+
+    public function  registeredExamUpdate(Request $request)
+    {
+       // $id = $request->input('id');
+        // $egzaminaLaikantisKlientas =$request->input('egzaminasKlientas');
+        $error = false;
+        $klientoid = $request->input('klientasid'); //egzaminuojamas_klientas id
+        $egzaminoid = $request->input('egzaminasid'); //egzaminuojamas_klientas id
+        $egzaminodata = $request->input('egzaminasdata');
+        $egzaminovieta = $request->input('egzaminasvieta');
+
+        $egzaminas  = DB::table('egzaminuojamas_klientas')->join('egzaminas',
+            'egzaminuojamas_klientas.FK_egzaminas', '=','egzaminas.id')
+            ->select('egzaminas.*')->get();
+        $naujaslaikas = $request->input('pragzia');
+        $egzaminasPasirinktuLaiku =DB::table('egzaminas')->where([
+                                                                ['pradzia','=', $naujaslaikas],
+                                                                ['data', '=', $egzaminodata ],
+                                                                ['vieta', '=', $egzaminovieta ],
+                                                                ['FK_Klientas', '=', '1' ], //tinkami tik laisvi egzaminai
+        ])->select('id')->pluck('id')->first();
+        var_dump($egzaminasPasirinktuLaiku);
+       // $count = $egzaminaiPasirinktuLaiku->count();
+        if($egzaminasPasirinktuLaiku!=0) //jei tokiu laiku yra laisvų egzaminų
+        {
+            DB::table('egzaminuojamas_klientas')->where([
+                ['FK_egzaminas', '=', $egzaminoid],
+                ['FK_klientas', '=', $klientoid ]
+            ])->update(['FK_egzaminas' => $egzaminasPasirinktuLaiku]);
+        } else
+        {
+            $error = true;
+        }
+        $egzaminuojamas_klientas = EgzaminuojamasKlientas::All();
+        return view('registrationExamInfo', compact('egzaminas', 'egzaminuojamas_klientas', 'error'));
+    }
     public function registrationToExamDelete(Request $request)
     {
-        $egzaminas = $egzaminas = DB::table('egzaminuojamas_klientas')->join('egzaminas',
-            'egzaminuojamas_klientas.FK_egzaminas', '=','egzaminas.id' )
-            ->select('egzaminas.*')->get();
-        $egzaminuojamas_klientas = EgzaminuojamasKlientas::all();
         $id = $request->input('id');
-        DB::table('egzaminuojamas_klientas')->where('id','=', $id)->delete();
-        return view('registrationExamInfo', compact('egzaminas', 'egzaminuojamas_klientas'));
+        //var_dump($id);
+        $error = false;
+        $egzaminuojamas_klientas = DB::table('egzaminuojamas_klientas')->where('id','=', $id)->delete();
+        $egzaminas  = DB::table('egzaminuojamas_klientas')->join('egzaminas',
+            'egzaminuojamas_klientas.FK_egzaminas', '=','egzaminas.id')
+            ->select('egzaminas.*')->get();
+        return view('registrationExamInfo', compact('egzaminas', 'egzaminuojamas_klientas', 'error'));
     }
     public function showExamsByCategory(Request $request)
     {

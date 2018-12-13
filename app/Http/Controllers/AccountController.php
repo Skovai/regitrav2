@@ -35,6 +35,7 @@ class AccountController extends Controller
     }
     public function registrationExamInfoPage()
     {
+        $error = false;
         $egzaminuojamas_klientas = EgzaminuojamasKlientas::all();
 
 
@@ -44,7 +45,7 @@ class AccountController extends Controller
 
             //SELECT * FROM `egzaminuojamas_klientas`
             //INNER JOIN egzaminas ON egzaminuojamas_klientas.FK_egzaminas = egzaminas.id;
-        return view('registrationExamInfo',compact('egzaminas', 'egzaminuojamas_klientas'));
+        return view('registrationExamInfo',compact('egzaminas', 'egzaminuojamas_klientas', 'error'));
     }
 
     public function accountsPage()
