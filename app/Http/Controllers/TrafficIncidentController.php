@@ -58,7 +58,7 @@ class TrafficIncidentController extends Controller
         $ivykioId = $request->input('ivykioId');
         $id = $request->input('id');
         $valstybinisNr = $request->input('valstybinisNr');
-        $addedTPID = DB::table('transporto_priemone')->select('id')->where('valstybinisNr', '=', $valstybinisNr)->first()->id;
+        $addedTPID = DB::table('transporto_priemone')->where('valstybinisNr', '=', $valstybinisNr)->first()->id;
         DB::table('transporto_priemones_eismo_ivykis')->insert(['FK_EismoIvykis' => $ivykioId, 'FK_TransportoPriemone' => $addedTPID]);
         $eismoIvykis = DB::table('eismo_ivykis')->join('transporto_priemones_eismo_ivykis', 'eismo_ivykis.id', '=', 'transporto_priemones_eismo_ivykis.FK_EismoIvykis' )
                                                 ->join('transporto_priemone', 'transporto_priemones_eismo_ivykis.FK_TransportoPriemone', '=', 'transporto_priemone.id')
