@@ -25,6 +25,7 @@
                 </tr>
                 </thead>
                 <tbody>
+
                 @foreach ($egzaminas as $key)
                     @if(DB::table('egzaminuojamas_klientas')->where('FK_klientas', $klientasId)->exists())
                     <tr>
@@ -35,7 +36,7 @@
                         <form method="post" action="{{action('ExamController@registrationToExamDelete')}}">
                             @csrf
                             <td>
-                                <input type="hidden" value="{{ $key->id }}" name="id">
+                                <input type="hidden" value="{{DB::table('egzaminuojamas_klientas')->where('FK_klientas', $klientasId)->get()}}" name="id">
                                 <button name="difficulty" class="btn btn-danger"
                                         value="3" type="submit">
                                     Atšaukti
@@ -44,7 +45,7 @@
                         </form>
                     </tr>
                     @else
-
+                        <h3 style="color:red;">Jūs šiuo metu nesate užsiregistravęs į jokį egzaminą</h3>
                     @endif
                 @endforeach
                 </tbody>

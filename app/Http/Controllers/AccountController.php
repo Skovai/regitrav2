@@ -36,7 +36,14 @@ class AccountController extends Controller
     public function registrationExamInfoPage()
     {
         $egzaminuojamas_klientas = EgzaminuojamasKlientas::all();
-        $egzaminas =  Egzaminas::all();
+
+
+        $egzaminas = DB::table('egzaminuojamas_klientas')->join('egzaminas',
+            'egzaminuojamas_klientas.FK_egzaminas', '=','egzaminas.id' )
+            ->select('egzaminas.*')->get();
+
+            //SELECT * FROM `egzaminuojamas_klientas`
+            //INNER JOIN egzaminas ON egzaminuojamas_klientas.FK_egzaminas = egzaminas.id;
         return view('registrationExamInfo',compact('egzaminas', 'egzaminuojamas_klientas'));
     }
 
@@ -108,8 +115,8 @@ class AccountController extends Controller
     public function examTimetablePage()
     {
         $kategorija =  Kategorija::all();
-
-        return view('examTimetable',compact('kategorija'));
+        $egzaminas =  Egzaminas::all();
+        return view('examTimetable',compact('egzaminas', 'kategorija' ));
     }
     public function registrationToExamPage()
     {

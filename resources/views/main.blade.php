@@ -2,12 +2,12 @@
 
 @section('title', 'Pagrindinis')
 @section('content')
-<?php if(Auth::check()){$id = Auth::user()->getAuthIdentifier();}?>
+<?php  if(Auth::check()){
+                $id = Auth::user()->getAuthIdentifier();
+                $klientoId = DB::table('klientas')->where('FK_Pirisijungimo_id', $id)->select('id')->pluck('id')->first();
+            }?>
     @auth
         <ul>
-            <?php
-                $klientoId = DB::table('klientas')->where('FK_Pirisijungimo_id', '=', $id)->first()->id;
-            ?>
             <form method="post" action="{{action('ClientController@getMessages')}}">
                 @csrf
                 <input type="hidden" value="{{ $klientoId }}" name="klientoId">

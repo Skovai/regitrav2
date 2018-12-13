@@ -32,7 +32,9 @@ class ExamController extends Controller
     }
     public function registrationToExamDelete(Request $request)
     {
-        $egzaminas =  Egzaminas::all();
+        $egzaminas = $egzaminas = DB::table('egzaminuojamas_klientas')->join('egzaminas',
+            'egzaminuojamas_klientas.FK_egzaminas', '=','egzaminas.id' )
+            ->select('egzaminas.*')->get();
         $egzaminuojamas_klientas = EgzaminuojamasKlientas::all();
         $id = $request->input('id');
         DB::table('egzaminuojamas_klientas')->where('id','=', $id)->delete();
@@ -108,7 +110,8 @@ class ExamController extends Controller
         DB::table('egzaminas')->insert(
             ['kategorija' => $kat,'data' => $data, 'pradzia' => $pradzia, 'pabaiga' => $pabaiga, 'kaina' => $kaina, 'vieta' => $vieta, 'tipas' => $tipas, 'arIslaikyta' => $arIslaikyta, 'FK_Marsrutas'  => 1, 'FK_Klientas' => 1 ]
         );
-        return view('examTimetable',compact('kategorija'));
+        $egzaminas = Egzaminas::all();
+        return view('examTimetable',compact('egzaminas', 'kategorija'));
     }
 
 
