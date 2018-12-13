@@ -70,14 +70,13 @@
                                     <div class="modal-body">
                                         <form method='post' action="{{action('ExamController@registeredExamUpdate')}}">
                                             @csrf
-                                            <input type="hidden" value="{{ DB::table('egzaminuojamas_klientas')->where('FK_klientas','=', $klientasId)->select('id')->pluck('id')->first() }}" name="klientasid">
-                                            <input type="hidden" value="{{$key->id }}" name="egzaminasid">
-                                            <input type="hidden" value="{{$key->data }}" name="egzaminasidata">
-                                            <input type="hidden" value="{{$key->vieta }}" name="egzaminasivieta">
-                                            <input type="hidden" value="{{$key->kategorija }}" name="egzaminaskategorija">
-                                            <input type="hidden" value="{{$key->tipas }}" name="egzaminastipas">
-                                            <input type="hidden" value="{{$key->FK_Klientas }}" name="egzaminasKlientas">
-                                            <input type="time" name="pradzia" id="pradzia" placeholder="Įveskite egzamino pradžios laiką">
+                                            <select name="egzaminoId">
+                                            @foreach ($egzaminas2 as $keys)
+
+                                                    <option value="{{$keys->id }}">{{$keys->data }} || {{ DB::table('kategorija')->where('id', $keys->kategorija)->select('name')->pluck('name')->first() }} || {{$keys->vieta }} ||  {{$keys->tipas }}</option>
+
+                                            @endforeach
+                                            </select>
                                             <input type='submit' name='ok' value='Atnaujinti'>
                                         </form>
                                     </div>

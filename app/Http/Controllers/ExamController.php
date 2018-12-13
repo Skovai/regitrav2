@@ -21,7 +21,8 @@ class ExamController extends Controller
         $message = '';
         $kategorija = Kategorija::all();
         $egzaminas = Egzaminas::all();
-        return view('registrationToExam', compact('egzaminas', 'kategorija', 'error', 'message'));
+        $egzaminas2 = Egzaminas::all();
+        return view('registrationToExam', compact('egzaminas','egzaminas2', 'kategorija', 'error', 'message'));
     }
     /**
      * Display a listing of the resource.
@@ -35,45 +36,14 @@ class ExamController extends Controller
 
     public function  registeredExamUpdate(Request $request)
     {
-       // $id = $request->input('id');
-        // $egzaminaLaikantisKlientas =$request->input('egzaminasKlientas');
-        $error = false;
-        $klientoid = $request->input('klientasid'); //egzaminuojamas_klientas id
-        $egzaminoid = $request->input('egzaminasid'); //egzaminuojamas_klientas id
-        $egzaminodata = $request->input('egzaminasdata');
-        $egzaminovieta = $request->input('egzaminasvieta');
-        $egzaminoTipas = $request->input('egzaminastipas');
-        $egzaminoKategorija = $request->input('egzaminaskategorija');
+        $egzaminoId = $request->input('egzaminoId');
+        $id = Auth::user()->getAuthIdentifier();
+        $klientasid = DB::table('klientas')->where('FK_Pirisijungimo_id', $id)->select('id')->pluck('id')->first();
+        DB::table('egzaminuojamas_klientas')->where('FK_klientas', $klientasid)->update(['FK_egzaminas' => $egzaminoId]);
+        $egzaminas2 = Egzaminas::all();
+        $egzaminas = Egzaminas::all();
 
-
-        $naujaslaikas = $request->input('pragzia');
-        $egzaminasPasirinktuLaiku =DB::table('egzaminas')->where([
-                                                                ['pradzia','=', $naujaslaikas],
-                                                                ['data', '=', $egzaminodata ],
-                                                                ['vieta', '=', $egzaminovieta ],
-                                                                ['tipas', '=', $egzaminoTipas ],
-                                                                ['kategorija', '=', $egzaminoKategorija ],
-                                                                ['FK_Klientas', '=', '1' ], //tinkami tik laisvi egzaminai
-        ])->select('id')->pluck('id')->first();
-        var_dump($egzaminasPasirinktuLaiku);
-       // $count = $egzaminaiPasirinktuLaiku->count();
-        if($egzaminasPasirinktuLaiku != 'NULL') //jei tokiu laiku yra laisvų egzaminų
-        {
-            print_r("as cia");
-            print_r($egzaminasPasirinktuLaiku);
-            DB::table('egzaminuojamas_klientas')->where([
-                ['FK_egzaminas', '=', $egzaminoid],
-                ['FK_klientas', '=', $klientoid ]
-            ])->update(['FK_egzaminas' => $egzaminasPasirinktuLaiku]);
-        } else
-        {
-            $error = true;
-        }
-        $egzaminuojamas_klientas = EgzaminuojamasKlientas::All();
-        $egzaminas  = DB::table('egzaminuojamas_klientas')->join('egzaminas',
-            'egzaminuojamas_klientas.FK_egzaminas', '=','egzaminas.id')
-            ->select('egzaminas.*')->get();
-        return view('registrationExamInfo', compact('egzaminas', 'egzaminuojamas_klientas', 'error'));
+        return view('registrationExamInfo', compact('egzaminas','egzaminas2'));
     }
     public function registrationToExamDelete(Request $request)
     {
@@ -84,7 +54,8 @@ class ExamController extends Controller
         $egzaminas  = DB::table('egzaminuojamas_klientas')->join('egzaminas',
             'egzaminuojamas_klientas.FK_egzaminas', '=','egzaminas.id')
             ->select('egzaminas.*')->get();
-        return view('registrationExamInfo', compact('egzaminas', 'egzaminuojamas_klientas', 'error'));
+        $egzaminas2 = Egzaminas::all();
+        return view('registrationExamInfo', compact('egzaminas', 'egzaminas2','egzaminuojamas_klientas', 'error'));
     }
     public function showExamsByCategory(Request $request)
     {
@@ -95,7 +66,8 @@ class ExamController extends Controller
         $kategorija_id = $request->input('kategorija');
         $egzaminas =  DB::table('egzaminas')->select('egzaminas.*')
                                     ->where('kategorija','=', $kategorija_id)->get();
-        return view('registrationToExam', compact('egzaminas', 'kategorija', 'error', 'message'));
+        $egzaminas2 = Egzaminas::all();
+        return view('registrationToExam', compact('egzaminas','egzaminas2', 'kategorija', 'error', 'message'));
     }
     public function addInstructor(Request $request)
     {
@@ -145,6 +117,7 @@ class ExamController extends Controller
         $egzaminas_tipas =$request->input('egzaminas_tipas');
         $egzaminas_kategorija =$request->input('egzaminas_kategorija');
 
+
         $arJauUžsiregistravęs = DB::table('egzaminuojamas_klientas')
                                             ->join('egzaminas', 'egzaminuojamas_klientas.FK_egzaminas','=','egzaminas.id')
                                             ->where([
@@ -166,8 +139,9 @@ class ExamController extends Controller
         {
             $message = "Klaida: Jūs jau esate užsiregistravęs į tokio tipo ir kategorijos egzaminą";
         }
+        $egzaminas2 = Egzaminas::all();
 
-        return view('registrationToExam',compact('egzaminas', 'kategorija', 'error', 'message'));
+        return view('registrationToExam',compact('egzaminas', '$egzaminas2','kategorija', 'error', 'message'));
     }
     public function examCreate(Request $request)
     {

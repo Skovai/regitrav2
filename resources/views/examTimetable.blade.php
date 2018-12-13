@@ -20,16 +20,16 @@
                 </select>
 
                 <label for="pradzia">Pradzia</label>
-                <input id="pradzia" type="time" name="pradzia">
+                <input id="pradzia" type="time" name="pradzia" required>
 
                 <label for="pabaiga">Pabaiga</label>
-                <input id="pabaiga" type="time" name="pabaiga">
+                <input id="pabaiga" type="time" name="pabaiga" required>
 
                 <label for="kaina">kaina</label>
-                <input id="kaina"type="number" name="kaina">
+                <input id="kaina"type="number" name="kaina" required>
 
                 <label for="vieta">vieta</label>
-                <select id="vieta" name="vieta">
+                <select id="vieta" name="vieta" required>
                     <option value="Vilnius">Vilnius</option>
                     <option value="Kaunas">Kaunas</option>
                     <option value="Klaipėda">Klaipėda</option>
@@ -38,7 +38,7 @@
                 </select>
 
                 <label for="tipas">tipas</label>
-                <select id="tipas" name="tipas">
+                <select id="tipas" name="tipas" required>
                     <option value="Teorija">Teorija</option>
                     <option value="Vairavimas">Vairavimas</option>
                 </select>

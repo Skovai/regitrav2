@@ -2,7 +2,7 @@
 
 @section('title', 'Pagrindinis')
 @section('content')
-    <h1>Susieti darbuotoja su instruktorium</h1>
+    <h1>Susieti klientą su instruktorium</h1>
     <div class="panel panel-default">
         <div class="panel-heading">Susieti instruktoriu</div>
         <div class="panel-body">

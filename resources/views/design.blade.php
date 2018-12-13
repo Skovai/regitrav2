@@ -198,7 +198,7 @@
             <!-- Sidebar -->
             <nav id="sidebar">
                 <div class="sidebar-header">
-                    <h3>Regitra V2</h3>
+                    <h3><a href="<?php if(Auth::check()){ echo '/main';}else{ echo '/';} ?>">Regitra V2</a></h3>
                 </div>
 
                 <ul class="list-unstyled components">
@@ -209,7 +209,7 @@
                     @endif
                     @if(Auth::check() and DB::table('darbuotojas')->where('FK_Pirisijungimo_id', '=', $id)->exists())
                     <li class="active">
-                        <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Administratoriaus funkcijų langas</a>
+                        <a href="{{action('AccountController@adminFunctionPage')}}"><a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Administratoriaus funkcijų langas</a></a>
                         <ul class="collapse list-unstyled" id="homeSubmenu">
                             <li><a href="{{action('AccountController@employeePage')}}">Darbuotojų langas</a></li>
                             <li><a href="{{action('AccountController@inventoryPage')}}">Inventoriaus langas</a></li>
@@ -218,7 +218,6 @@
                             <li><a href="{{action('AccountController@instructorPage')}}">Instruktoriaus pasirinkimo langas</a></li>
                             <li><a href="{{action('AccountController@examTimetablePage')}}">Egzaminų tvarkaraščio langas</a></li>
                             <li><a href="{{action('AccountController@routePage')}}">Maršruto sudarymo langas</a></li>
-                            <li><a href="{{action('TrafficIncidentController@trafficIncidentPage')}}">Eismo įvykių langas</a></li>
                         </ul>
                     </li>
                         @endif

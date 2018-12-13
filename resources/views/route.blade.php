@@ -9,13 +9,13 @@
             <form method="post" action="{{action('ExamController@routeCreate')}}">
                 @csrf
                 <label for="kelias">Kelias</label>
-                <input id="kelias" type="text" name="kelias">
+                <input id="kelias" type="text" name="kelias" required>
 
                 <label for="laikas">Laikas</label>
-                <input id="laikas" type="time" name="laikas">
+                <input id="laikas" type="time" name="laikas" required>
 
                 <label for="ilgis">Ilgis</label>
-                <input id="ilgis" type="number" name="ilgis">
+                <input id="ilgis" type="number" name="ilgis" required>
 
                 <button name="difficulty" class="btn btn-danger" style="width: 80px"
                         value="3" type="submit">

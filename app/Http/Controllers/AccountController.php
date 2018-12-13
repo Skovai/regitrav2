@@ -37,7 +37,7 @@ class AccountController extends Controller
     {
         $error = false;
         $egzaminuojamas_klientas = EgzaminuojamasKlientas::all();
-
+        $egzaminas2 = Egzaminas::all();
 
         $egzaminas = DB::table('egzaminuojamas_klientas')->join('egzaminas',
             'egzaminuojamas_klientas.FK_egzaminas', '=','egzaminas.id' )
@@ -45,7 +45,7 @@ class AccountController extends Controller
 
             //SELECT * FROM `egzaminuojamas_klientas`
             //INNER JOIN egzaminas ON egzaminuojamas_klientas.FK_egzaminas = egzaminas.id;
-        return view('registrationExamInfo',compact('egzaminas', 'egzaminuojamas_klientas', 'error'));
+        return view('registrationExamInfo',compact('egzaminas', 'egzaminas2', 'egzaminuojamas_klientas', 'error'));
     }
 
     public function accountsPage()
