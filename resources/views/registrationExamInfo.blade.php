@@ -25,6 +25,7 @@
                 </tr>
                 </thead>
                 <tbody>
+
                 @foreach ($egzaminas as $key)
                     @if(DB::table('egzaminuojamas_klientas')->where('FK_klientas', $klientasId)->exists())
                     <tr>
@@ -44,7 +45,7 @@
                         </form>
                     </tr>
                     @else
-
+                        <h3 style="color:red;">Jūs šiuo metu nesate užsiregistravęs į jokį egzaminą</h3>
                     @endif
                 @endforeach
                 </tbody>
