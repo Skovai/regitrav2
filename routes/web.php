@@ -60,7 +60,7 @@ Route::post('/trafficIncidentInclude', 'TrafficIncidentController@includeLicense
 Route::get('/accountsCreate', 'AccountController@accountsPage');
 Route::post('/accountsCreate/success', 'AccountController@accountsPageCreate');
 Route::post('/accountsCreate/deleted', 'AccountController@accountsPageDelete');
-Route::get('/licensePlateRegistration', 'VehicleController@licensePlateRegistrationPage');
+Route::post('/licensePlateRegistration', 'VehicleController@licensePlateRegistrationPage');
 Route::get('/clientEditing', 'AccountController@clientDataEditingPage');
 Route::post('/clientEditing/update', 'ClientController@clientUpdate');
 

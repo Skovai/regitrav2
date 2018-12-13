@@ -52,6 +52,7 @@ class VehicleController extends Controller
     
     public function vehicleCreatePage(Request $request)
     {
+        $errorMessage = "";
         $valstybinisNr = $request->input('valstybinisNr');
         $VIN = $request->input('VIN');
         $marke = $request->input('marke');
@@ -64,7 +65,7 @@ class VehicleController extends Controller
             ['valstybinisNr' => $valstybinisNr, 'VIN' => $VIN, 'marke' => $marke, 'modelis' => $modelis, 'spalva' => $spalva, 'galingumas' => $galingumas, 'kategorija' => $kategorija, 'FK_Klientas' => $FK_Klientas]
         );
         $transportoPriemone = TransportoPriemone::all();
-        return view('vehicle',compact('transportoPriemone'));
+        return view('vehicle',compact('transportoPriemone', 'errorMessage'));
     }
     
     public function licensePlateRegistrationPage()
