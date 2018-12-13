@@ -12,14 +12,14 @@
     <div class="panel panel-default">
         <div class="panel-heading">Egzaminai, į kuriuos esate užsiregistravęs</div>
         <div class="panel-body">
-            @if($error)
+            <form action ="" method="post">
+                <!--TODO dropdownas pasirinkti,kokio tipo egzaminai bus rodomi ir pagal tą reikšmę rodyti egzaminus tinkamus-->
+            </form>
+            @if($error == true)
                 <div class="alert alert-danger text-left">
                     <span>Tokiu laiku laisvų egzaminų nėra!</span>
                 </div>
             @endif
-            <form action ="" method="post">
-                <!--TODO dropdownas pasirinkti,kokio tipo egzaminai bus rodomi ir pagal tą reikšmę rodyti egzaminus tinkamus-->
-            </form>
             <table class="table">
                 <thead>
                 <tr>
@@ -30,9 +30,11 @@
                 </tr>
                 </thead>
                 <tbody>
-                @if(DB::table('egzaminuojamas_klientas')->where('FK_klientas', $klientasId)->exists())
                 @foreach ($egzaminas as $key)
-
+                    @if(DB::table('egzaminuojamas_klientas')->where([
+                                                                       ['FK_klientas', $klientasId],
+                                                                       ['FK_egzaminas', $key->id]
+                                                                    ])->exists());
                     <tr>
                         <td>{{ $key->data }}</td>
                         <td>{{ $key->pradzia }}</td>
@@ -65,14 +67,14 @@
                                     </div>
                                     <div class="modal-body">
                                         <form method='post' action="{{action('ExamController@registeredExamUpdate')}}">
-                                                @csrf
-                                                <input type="hidden" value="{{ DB::table('egzaminuojamas_klientas')->where('FK_klientas','=', $klientasId)->select('id')->pluck('id')->first() }}" name="klientasid">
-                                                <input type="hidden" value="{{$key->id }}" name="egzaminasid">
-                                                <input type="hidden" value="{{$key->data }}" name="egzaminasidata">
-                                                <input type="hidden" value="{{$key->vieta }}" name="egzaminasivieta">
-                                                <input type="hidden" value="{{$key->FK_Klientas }}" name="egzaminasKlientas">
-                                                <input type="time" name="pradzia" id="pradzia" placeholder="Įveskite egzamino pradžios laiką">
-                                                <input type='submit' name='ok' value='Atnaujinti'>
+                                            @csrf
+                                            <input type="hidden" value="{{ DB::table('egzaminuojamas_klientas')->where('FK_klientas','=', $klientasId)->select('id')->pluck('id')->first() }}" name="klientasid">
+                                            <input type="hidden" value="{{$key->id }}" name="egzaminasid">
+                                            <input type="hidden" value="{{$key->data }}" name="egzaminasidata">
+                                            <input type="hidden" value="{{$key->vieta }}" name="egzaminasivieta">
+                                            <input type="hidden" value="{{$key->FK_Klientas }}" name="egzaminasKlientas">
+                                            <input type="time" name="pradzia" id="pradzia" placeholder="Įveskite egzamino pradžios laiką">
+                                            <input type='submit' name='ok' value='Atnaujinti'>
                                         </form>
                                     </div>
                                     <div class="modal-footer">
@@ -84,10 +86,8 @@
                         </div>
 
                     </tr>
+                    @endif
                 @endforeach
-                @else
-                    <h3 style="color:red;">Jūs šiuo metu nesate užsiregistravęs į jokį egzaminą</h3>
-                @endif
                 </tbody>
             </table>
 
