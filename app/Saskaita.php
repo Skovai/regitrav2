@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class Saskaita extends Model
 {
     protected $fillable = [
-        'darbuotojas_id', 'pavadinimas', 'serijos_numeris'
+        'suma', 'paskirtis', 'isdavimo_data', 'isdavimo_laikas', 'terminas','darbuotojas_id', 'FK_Klientas'
     ];
+
+    protected $table = 'saskaita';
 }

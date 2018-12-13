@@ -2,9 +2,56 @@
 
 @section('title', 'Prisijungimas')
 @section('content')
-        <h1>Prisijungimo langas Regitra V1</h1>
-        <h1>Prisijungimo langas Regitra V0 - pakeista</h1>
-        <input type="text" placeholder="Vardas">
-        <input type="password" placeholder="Slaptažodis">
-        <a href="{{action('AccountController@mainPage')}}">Prisijungti</a>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">{{ __('Prisijungti') }}</div>
+
+                <div class="card-body">
+                    <form method="POST" action="{{ route('login') }}">
+                        @csrf
+
+                        <div class="form-group row">
+                            <label for="email" class="col-sm-4 col-form-label text-md-right">{{ __('Elpaštas') }}</label>
+
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" name="email" value="{{ old('email') }}" required autofocus>
+
+                                @if ($errors->has('email'))
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('email') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Slaptažodis') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required>
+
+                                @if ($errors->has('password'))
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('password') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="form-group row mb-0">
+                            <div class="col-md-8 offset-md-4">
+                                <button type="submit" class="btn btn-primary">
+                                    {{ __('Prisijungti') }}
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <li><a href="{{url('/register')}}">Registruotis</a></li>
+</div>
 @endsection

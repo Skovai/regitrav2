@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateVairuotojoKategorijasTable extends Migration
+class CreateVairuotojoKategorijaTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,12 @@ class CreateVairuotojoKategorijasTable extends Migration
      */
     public function up()
     {
-        Schema::create('vairuotojo_kategorijas', function (Blueprint $table) {
+        Schema::create('vairuotojo_kategorija', function (Blueprint $table) {
             $table->increments('id');
             $table->date('isdavimo_data');
             $table->integer('kategorija');
             $table->unsignedInteger('FK_Vairuotojo_pazymejimas')->index();
-            $table->foreign('FK_Vairuotojo_pazymejimas')->references('id')->on('Vairuotojo_pazymejimas');
+            $table->foreign('FK_Vairuotojo_pazymejimas')->references('id')->on('vairuotojo_pazymejimas');
             $table->timestamps();
         });
     }
@@ -30,6 +30,6 @@ class CreateVairuotojoKategorijasTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('vairuotojo_kategorijas');
+        Schema::dropIfExists('vairuotojo_kategorija');
     }
 }

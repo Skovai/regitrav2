@@ -8,6 +8,6 @@ class Klientas extends Model
 {
   protected $fillable = [
       'vardas', 'pavarde', 'asmens_kodas', 'tel_nr',
-      'miestas', 'adresas', 'gimimo_data', 'e_pastas', 'FK_Darbuotojas'
+      'miestas', 'adresas', 'gimimo_data', 'e_pastas', 'FK_Darbuotojas', 'FK_Pirisijungimo_id'
   ];
 }

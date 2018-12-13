@@ -1,8 +1,18 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Darbuotojas;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+use App\Saskaita;
+use App\TransportoPriemone;
+use App\Klientas;
+use App\Egzaminas;
+use App\Kategorija;
+use App\Inventorius;
+use App\Marsrutas;
+use App\EgzaminuojamasKlientas;
+use Illuminate\Support\Facades\Schema;
 
 class AccountController extends Controller
 {
@@ -25,20 +35,51 @@ class AccountController extends Controller
     }
     public function registrationExamInfoPage()
     {
-        return view('registrationExamInfo');
+        $error = false;
+        $egzaminuojamas_klientas = EgzaminuojamasKlientas::all();
+
+
+        $egzaminas = DB::table('egzaminuojamas_klientas')->join('egzaminas',
+            'egzaminuojamas_klientas.FK_egzaminas', '=','egzaminas.id' )
+            ->select('egzaminas.*')->get();
+
+            //SELECT * FROM `egzaminuojamas_klientas`
+            //INNER JOIN egzaminas ON egzaminuojamas_klientas.FK_egzaminas = egzaminas.id;
+        return view('registrationExamInfo',compact('egzaminas', 'egzaminuojamas_klientas', 'error'));
     }
-    public function registrationToExamPage()
-    {
-        return view('registrationToExam');
-    }
-    public function vehicleInfoPage()
-    {
-        return view('vehicleInfo');
-    }
+
     public function accountsPage()
     {
-        return view('accounts');
+        $saskaita =  Saskaita::all();
+        $klientas =  Klientas::all();
+        return view('accounts',compact('saskaita','klientas'));
     }
+    public function accountsPageCreate(Request $request)
+    {
+        $saskaita =  Saskaita::all();
+        $klientas =  Klientas::all();
+        $suma = $request->input('suma');
+        $paskirtis = $request->input('paskirtis');
+        $isdavimo_data = $request->input('isdavimo_data');
+        $isdavimo_laikas = $request->input('isdavimo_laikas');
+        $terminas = $request->input('terminas');
+        $FK_klientas = $request->input('FK_klientas');
+        DB::table('saskaita')->insert(
+            ['suma' => $suma, 'paskirtis' => $paskirtis, 'isdavimo_data' => $isdavimo_data, 'isdavimo_laikas' => $isdavimo_laikas,
+             'terminas' => $terminas, 'darbuotojas_id' => NULL, 'FK_klientas' => $FK_klientas]
+        );
+        return view('accounts',compact('saskaita', 'klientas'));
+    }
+    public function accountsPageDelete(Request $request)
+    {
+        $saskaita =  Saskaita::all();
+        $klientas =  Klientas::all();
+        $id = $request->input('id');
+        DB::table('saskaita')->where('id', '=', $id)->delete();
+
+        return view('accounts',compact('saskaita', 'klientas'));
+    }
+    
     public function driversLicensePage()
     {
         return view('driversLicense');
@@ -47,7 +88,6 @@ class AccountController extends Controller
     {
         return view('employee');
     }
-
     public function employeeDataEditingPage()
     {
         return view('employeeDataEditing');
@@ -62,7 +102,8 @@ class AccountController extends Controller
     }
     public function inventoryPage()
     {
-        return view('inventory');
+        $inventorius = Inventorius::all();
+        return view('inventory',compact('inventorius'));
     }
     public function messagePage()
     {
@@ -74,84 +115,38 @@ class AccountController extends Controller
     }
     public function examTimetablePage()
     {
-        return view('examTimetable');
+        $kategorija =  Kategorija::all();
+        $egzaminas =  Egzaminas::all();
+        return view('examTimetable',compact('egzaminas', 'kategorija' ));
     }
-    public function vehiclePage()
+    public function registrationToExamPage()
     {
-        return view('vehicle');
+        $kategorija = Kategorija::all();
+        $egzaminas = Egzaminas::all();
+        return view('registrationToExam' ,compact('egzaminas', 'kategorija'));
     }
     public function instructorPage()
     {
-        return view('instructor');
+        $darbuotojas = Darbuotojas::all();
+        $klientas = Klientas::all();
+        return view('instructor', compact('darbuotojas', 'klientas'));
     }
     public function routePage()
     {
-        return view('route');
-    }
-    public function trafficIncidentPage()
-    {
-        return view('trafficIncident');
-    }
-    public function licensePlateRegistrationPage()
-    {
-        return view('licensePlateRegistration');
+        $marsrutas =  Marsrutas::all();
+        return view('route', compact('marsrutas'));
     }
     public function clientDataEditingPage()
     {
         return view('clientDataEditing');
     }
-
-
-        /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function login(Request $request)
     {
-        //
+        $this->validate($request, [
+
+        ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
         //

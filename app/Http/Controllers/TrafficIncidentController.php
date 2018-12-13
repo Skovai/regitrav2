@@ -1,8 +1,11 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+use App\TransportoPriemone;
+use App\EismoIvykis;
+use App\TransportoPriemonesEismoIvykis;
 
 class TrafficIncidentController extends Controller
 {
@@ -15,7 +18,55 @@ class TrafficIncidentController extends Controller
     {
         //
     }
+    
+    public function trafficIncidentPage(Request $request)
+    {
+        $id = $request->input('id');
+        $eismoIvykis = DB::table('eismo_ivykis')->join('transporto_priemones_eismo_ivykis', 'eismo_ivykis.id', '=', 'transporto_priemones_eismo_ivykis.FK_EismoIvykis' )
+                                                ->join('transporto_priemone', 'transporto_priemones_eismo_ivykis.FK_TransportoPriemone', '=', 'transporto_priemone.id')
+                                                ->select('eismo_ivykis.*')
+                                                ->where('transporto_priemone.id', '=', $id)->get();
+        return view('trafficIncident',compact('eismoIvykis', 'id'));
+    }
 
+    public function trafficIncidentAddPage(Request $request)
+    {
+        $id = $request->input('id');
+        
+        return view('trafficIncidentAdd', compact('id'));
+    }
+    
+    public function trafficIncidentAdd(Request $request)
+    {
+        $id = $request->input('id');
+        $data = $request->input('data');
+        $laikas = $request->input('laikas');
+        $vieta = $request->input('vieta');
+        $aprasas = $request->input('aprasas');
+        $pareigunai = $request->input('pareigunai');
+        $ivykioId = DB::table('eismo_ivykis')->insertGetId(['data' => $data, 'laikas' => $laikas, 'vieta' => $vieta, 'aprasas' => $aprasas, 'pareigunai' => $pareigunai]);
+        DB::table('transporto_priemones_eismo_ivykis')->insert(['FK_EismoIvykis' => $ivykioId, 'FK_TransportoPriemone' => $id]);
+        $eismoIvykis = DB::table('eismo_ivykis')->join('transporto_priemones_eismo_ivykis', 'eismo_ivykis.id', '=', 'transporto_priemones_eismo_ivykis.FK_EismoIvykis' )
+                                                ->join('transporto_priemone', 'transporto_priemones_eismo_ivykis.FK_TransportoPriemone', '=', 'transporto_priemone.id')
+                                                ->select('eismo_ivykis.*')
+                                                ->where('transporto_priemone.id', '=', $id)->get();
+        return view('trafficIncident',compact('eismoIvykis', 'id'));
+    }
+    
+    public function includeLicensePlate(Request $request)
+    {
+        $ivykioId = $request->input('ivykioId');
+        $id = $request->input('id');
+        $valstybinisNr = $request->input('valstybinisNr');
+        $addedTPID = DB::table('transporto_priemone')->where('valstybinisNr', '=', $valstybinisNr)->first()->id;
+        DB::table('transporto_priemones_eismo_ivykis')->insert(['FK_EismoIvykis' => $ivykioId, 'FK_TransportoPriemone' => $addedTPID]);
+        $eismoIvykis = DB::table('eismo_ivykis')->join('transporto_priemones_eismo_ivykis', 'eismo_ivykis.id', '=', 'transporto_priemones_eismo_ivykis.FK_EismoIvykis' )
+                                                ->join('transporto_priemone', 'transporto_priemones_eismo_ivykis.FK_TransportoPriemone', '=', 'transporto_priemone.id')
+                                                ->select('eismo_ivykis.*')
+                                                ->where('transporto_priemone.id', '=', $id)->get();
+        return view('trafficIncident',compact('eismoIvykis', 'id'));
+    }
+    
     /**
      * Show the form for creating a new resource.
      *

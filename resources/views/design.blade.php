@@ -9,7 +9,8 @@
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet" type="text/css">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <!-- Styles -->
         <style>
             html, body {
@@ -65,7 +66,10 @@
         </style>
     </head>
     <body>
-    <h1 class="text-center">Regitra V2</h1>
+    <h1 class="text-center"><a href="<?php if(Auth::check()){ echo '/main';}else{ echo '/';} ?>">Regitra V2</a></h1>
+    @auth
+    <li><a href="{{url('/logout')}}">Atsijungti</a></li>
+    @endauth
     <div class="well">
         @yield('content')
 

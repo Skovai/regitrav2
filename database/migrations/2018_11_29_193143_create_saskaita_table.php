@@ -18,10 +18,12 @@ class CreateSaskaitaTable extends Migration
             $table->float('suma');
             $table->string('paskirtis');
             $table->date('isdavimo_data');
-            $table->dateTime('isdavimo_laikas');
+            $table->time('isdavimo_laikas');
             $table->date('terminas');
-            $table->unsignedInteger('darbuotojas_id')->index();
+            $table->unsignedInteger('darbuotojas_id')->index()->nullable();
             $table->foreign('darbuotojas_id')->references('id')->on('darbuotojas');
+            $table->unsignedInteger('FK_klientas')->index();
+            $table->foreign('FK_klientas')->references('id')->on('klientas');
             $table->timestamps();
         });
     }
@@ -33,6 +35,6 @@ class CreateSaskaitaTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('saskaitas');
+        Schema::dropIfExists('saskaita');
     }
 }
