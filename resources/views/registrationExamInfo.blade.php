@@ -15,10 +15,12 @@
             <form action ="" method="post">
                 <!--TODO dropdownas pasirinkti,kokio tipo egzaminai bus rodomi ir pagal tą reikšmę rodyti egzaminus tinkamus-->
             </form>
-            @if($error == true)
-                <div class="alert alert-danger text-left">
-                    <span>Tokiu laiku laisvų egzaminų nėra!</span>
-                </div>
+            @if(isset($ok))
+                @if($error == true)
+                    <div class="alert alert-danger text-left">
+                        <span>Tokiu laiku laisvų egzaminų nėra!</span>
+                    </div>
+                @endif
             @endif
             <table class="table">
                 <thead>
@@ -34,7 +36,7 @@
                     @if(DB::table('egzaminuojamas_klientas')->where([
                                                                        ['FK_klientas', $klientasId],
                                                                        ['FK_egzaminas', $key->id]
-                                                                    ])->exists());
+                                                                    ])->exists())
                     <tr>
                         <td>{{ $key->data }}</td>
                         <td>{{ $key->pradzia }}</td>
@@ -72,6 +74,8 @@
                                             <input type="hidden" value="{{$key->id }}" name="egzaminasid">
                                             <input type="hidden" value="{{$key->data }}" name="egzaminasidata">
                                             <input type="hidden" value="{{$key->vieta }}" name="egzaminasivieta">
+                                            <input type="hidden" value="{{$key->kategorija }}" name="egzaminaskategorija">
+                                            <input type="hidden" value="{{$key->tipas }}" name="egzaminastipas">
                                             <input type="hidden" value="{{$key->FK_Klientas }}" name="egzaminasKlientas">
                                             <input type="time" name="pradzia" id="pradzia" placeholder="Įveskite egzamino pradžios laiką">
                                             <input type='submit' name='ok' value='Atnaujinti'>

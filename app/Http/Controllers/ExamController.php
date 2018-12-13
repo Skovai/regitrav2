@@ -17,9 +17,10 @@ class ExamController extends Controller
 
     public function registrationToExamPage()
     {
+        $error = false;
         $kategorija = Kategorija::all();
         $egzaminas = Egzaminas::all();
-        return view('registrationToExam', compact('egzaminas', 'kategorija'));
+        return view('registrationToExam', compact('egzaminas', 'kategorija', 'error'));
     }
     /**
      * Display a listing of the resource.
@@ -40,15 +41,17 @@ class ExamController extends Controller
         $egzaminoid = $request->input('egzaminasid'); //egzaminuojamas_klientas id
         $egzaminodata = $request->input('egzaminasdata');
         $egzaminovieta = $request->input('egzaminasvieta');
+        $egzaminoTipas = $request->input('egzaminastipas');
+        $egzaminoKategorija = $request->input('egzaminaskategorija');
 
-        $egzaminas  = DB::table('egzaminuojamas_klientas')->join('egzaminas',
-            'egzaminuojamas_klientas.FK_egzaminas', '=','egzaminas.id')
-            ->select('egzaminas.*')->get();
+
         $naujaslaikas = $request->input('pragzia');
         $egzaminasPasirinktuLaiku =DB::table('egzaminas')->where([
                                                                 ['pradzia','=', $naujaslaikas],
                                                                 ['data', '=', $egzaminodata ],
                                                                 ['vieta', '=', $egzaminovieta ],
+                                                                ['tipas', '=', $egzaminoTipas ],
+                                                                ['kategorija', '=', $egzaminoKategorija ],
                                                                 ['FK_Klientas', '=', '1' ], //tinkami tik laisvi egzaminai
         ])->select('id')->pluck('id')->first();
         var_dump($egzaminasPasirinktuLaiku);
@@ -64,6 +67,9 @@ class ExamController extends Controller
             $error = true;
         }
         $egzaminuojamas_klientas = EgzaminuojamasKlientas::All();
+        $egzaminas  = DB::table('egzaminuojamas_klientas')->join('egzaminas',
+            'egzaminuojamas_klientas.FK_egzaminas', '=','egzaminas.id')
+            ->select('egzaminas.*')->get();
         return view('registrationExamInfo', compact('egzaminas', 'egzaminuojamas_klientas', 'error'));
     }
     public function registrationToExamDelete(Request $request)
@@ -79,12 +85,13 @@ class ExamController extends Controller
     }
     public function showExamsByCategory(Request $request)
     {
+        $error = false;
         $kategorija = Kategorija::all();
        // $egzaminas = Egzaminas::all();
         $kategorija_id = $request->input('kategorija');
         $egzaminas =  DB::table('egzaminas')->select('egzaminas.*')
                                     ->where('kategorija','=', $kategorija_id)->get();
-        return view('registrationToExam', compact('egzaminas', 'kategorija'));
+        return view('registrationToExam', compact('egzaminas', 'kategorija', 'error'));
     }
     public function addInstructor(Request $request)
     {
@@ -122,6 +129,7 @@ class ExamController extends Controller
 
     public function registerToExam(Request $request)
     {
+        $error =false;
         $kategorija = Kategorija::all();
         $egzaminas = Egzaminas::all();
         $id = Auth::user()->getAuthIdentifier();
@@ -130,8 +138,8 @@ class ExamController extends Controller
         DB::table('egzaminuojamas_klientas')->insert(
             ['FK_klientas' => $klientasId,'FK_egzaminas' => $egzaminas_id ]
         );
-
-        return view('registrationToExam',compact('egzaminas', 'kategorija'));
+        $error=true; //naudojamas parodyti pranešimą,kad registracija pavyko
+        return view('registrationToExam',compact('egzaminas', 'kategorija', 'error'));
     }
     public function examCreate(Request $request)
     {

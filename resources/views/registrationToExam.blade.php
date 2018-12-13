@@ -21,6 +21,11 @@
     <div class="panel panel-default">
         <div class="panel-heading">Egzaminai, į kuriuos galite registruotis</div>
         <div class="panel-body">
+            @if($error)
+                <div class="alert alert-success text-left">
+                    <span>Jūsų registracija sėkminga</span>
+                </div>
+            @endif
             <form action ="{{action('ExamController@showExamsByCategory')}}" method="post">
               @csrf
                 <label for="kategorija" >Kategorija</label>
@@ -64,7 +69,9 @@
                     </tr>
                 @endforeach
                 @else
-                  <h3 style="color:red;">Klaida: tokių egzaminų nėra</h3>
+                      <div class="alert alert-danger text-left">
+                          <span>Klaida: tokių egzaminų nėra</span>
+                      </div>
                 @endif
                 </tbody>
             </table>

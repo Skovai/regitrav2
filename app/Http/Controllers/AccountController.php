@@ -121,9 +121,10 @@ class AccountController extends Controller
     }
     public function registrationToExamPage()
     {
+        $error =false;
         $kategorija = Kategorija::all();
         $egzaminas = Egzaminas::all();
-        return view('registrationToExam' ,compact('egzaminas', 'kategorija'));
+        return view('registrationToExam' ,compact('egzaminas', 'kategorija', 'error'));
     }
     public function instructorPage()
     {
