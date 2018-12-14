@@ -35,7 +35,7 @@
                                                             <input type="hidden" value="{{ $key->id }}" name="ivykioId">
                                                             <input type="hidden" value="{{ $id }}" name="id">
                                                             <input type="text" name="valstybinisNr" id="valstybinisNr" placeholder="Įveskite valstybinį nr.">
-                                                            <input type='submit' name='ok' value='Itraukti'>
+                                                            <input type='submit' name='ok' value='Įtraukti'>
                                                     </td>
                                                 </form>
                                     </tr>

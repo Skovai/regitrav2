@@ -97,7 +97,8 @@ class VehicleController extends Controller
         }
         else
         {
-            return view('vehicleInfo',compact('transportoPriemone', 'valstybinisNr'));
+            $errorMessage = "Valstybinis nr. jau registruotas";
+            return view('vehicle',compact('transportoPriemone', 'errorMessage'));
         }
     }
     

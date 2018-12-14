@@ -96,11 +96,33 @@
         <button type="submit">Perregistruoti TP</button>
     </form>     
     
-    <form method="post" action="{{action('VehicleController@vehicleDeletePage')}}">
-        @csrf
-        <input type="hidden" value="{{ $key->id }}" name="id">
-        <button type="submit">Išregistruoti TP</button>
-    </form>
+    <button type="button"  data-toggle="modal" data-target="#myModal2">Išregistruoti TP</button>
+
+        <!-- Modal -->
+        <div class="modal fade" id="myModal2" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Ar tikrai norite išregistruoti transporto priemonę?</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form method='post' action="{{action('VehicleController@vehicleDeletePage')}}">
+                            @csrf
+                        <input type="hidden" value="{{ $key->id }}" name="id">
+                        <input type='submit' name='ok' value='Taip'>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Atšaukti</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        
     </table>
     
     <br>
