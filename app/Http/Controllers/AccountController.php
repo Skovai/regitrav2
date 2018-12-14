@@ -79,10 +79,12 @@ class AccountController extends Controller
 
         return view('accounts',compact('saskaita', 'klientas'));
     }
-    
+
     public function driversLicensePage()
     {
-        return view('driversLicense');
+      $klientas =  Klientas::all();
+      $kategorijos = Kategorija::all();
+        return view('driversLicense', compact('klientas', 'kategorijos'));
     }
     public function employeePage()
     {

@@ -17,7 +17,7 @@ class CreateVairuotojoPazymejimasTable extends Migration
             $table->increments('id');
             $table->date('isdavimo_data');
             $table->date('galiojimo_data');
-            $table->integer('pazymejimo_nr');
+            $table->integer('pazymejimo_nr')->unique();
             $table->unsignedInteger('FK_Klientas')->index();
             $table->foreign('FK_Klientas')->references('id')->on('klientas');
             $table->timestamps();

@@ -25,14 +25,23 @@
                 <input id="nr"type="text" name="nr">
 
                 <label for="miestas">Miestas</label>
-                <input id="miestas" type="text" name="miestas">
+                <select id="miestas" type="text" name="miestas">
+                 <option value="Vilnius">Vilnius</option>
+                 <option value="Kaunas">Kaunas</option>
+                 <option value="Klaipėda">Klaipėda</option>
+                 <option value="Šiauliai">Šiauliai</option>
+                 <option value="Panėvežys">Panėvežys</option>
+                </select>
+
+
+                <!--<input id="miestas" type="text" name="miestas">-->
 
                 <label for="adresas">Adresas</label>
                 <input id="adresas" type="text" name="adresas">
-                
+
                 <label for="gimimoData">Gimimo data</label>
                 <input id="gimimoData" type="date" name="gimimoData">
-                
+
                 <label for="pastas">El. paštas</label>
                 <input id="pastas" type="email" name="pastas">
 
@@ -40,6 +49,9 @@
                         value="3" type="submit">
                         Patvirtinti
                 </button>
+
+
+
                 </form>
         </div>
 </div>

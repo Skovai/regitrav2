@@ -29,6 +29,10 @@ Route::get('/driversLicense', 'AccountController@driversLicensePage');
 Route::post('/registrationToExam', 'ExamController@showExamsByCategory');
 Route::post('/registrationExamInfo/delete', 'ExamController@registrationToExamDelete');
 
+Route::post('/driversLicense/create', 'DriversLicenseController@create');
+Route::post('/driversLicense/delete', 'DriversLicenseController@destroy');
+Route::post('/driversLicense/update', 'DriversLicenseController@update');
+Route::post('/driversLicense/AddCategory', 'DriversLicenseController@AddCategory');
 // LVL 3
 Route::get('/employee', 'AccountController@employeePage');
 Route::get('/inventory', 'AccountController@inventoryPage');
@@ -73,7 +77,7 @@ Route::get('/generatedMessage', 'AccountController@messagePage');
 
 // LVL5
 Route::get('/timetableMessagePage', 'AccountController@timetableMessagePage');
-// Bonus 
+// Bonus
 Auth::routes();
 
 Route::get('/main', 'HomeController@index')->name('main');
