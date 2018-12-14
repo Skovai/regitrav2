@@ -61,9 +61,17 @@ class VehicleController extends Controller
         $galingumas = $request->input('galingumas');
         $FK_Klientas = $request->input('FK_Klientas');
         $kategorija = $request->input('kategorija');
-        DB::table('transporto_priemone')->insert(
-            ['valstybinisNr' => $valstybinisNr, 'VIN' => $VIN, 'marke' => $marke, 'modelis' => $modelis, 'spalva' => $spalva, 'galingumas' => $galingumas, 'kategorija' => $kategorija, 'FK_Klientas' => $FK_Klientas]
-        );
+        $count = DB::table('transporto_priemone')->where('valstybinisNr', '=', $valstybinisNr)->count();
+        if($count==0)
+        {
+            DB::table('transporto_priemone')->insert(
+                ['valstybinisNr' => $valstybinisNr, 'VIN' => $VIN, 'marke' => $marke, 'modelis' => $modelis, 'spalva' => $spalva, 'galingumas' => $galingumas, 'kategorija' => $kategorija, 'FK_Klientas' => $FK_Klientas]
+            );
+        }
+        else
+        {
+            $errorMessage = "Valstybinis nr. jau registruotas";
+        }
         $transportoPriemone = TransportoPriemone::all();
         return view('vehicle',compact('transportoPriemone', 'errorMessage'));
     }
