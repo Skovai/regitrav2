@@ -16,7 +16,7 @@ class CreateVairuotojoKategorijaTable extends Migration
         Schema::create('vairuotojo_kategorija', function (Blueprint $table) {
             $table->increments('id');
             $table->date('isdavimo_data');
-            $table->integer('kategorija');
+            $table->string('kategorija');
             $table->unsignedInteger('FK_Vairuotojo_pazymejimas')->index();
             $table->foreign('FK_Vairuotojo_pazymejimas')->references('id')->on('vairuotojo_pazymejimas');
             $table->timestamps();
