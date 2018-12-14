@@ -19,7 +19,8 @@ class CreateDarbuotojasTable extends Migration
     {
         Schema::create('darbuotojas', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('pareigos');
+            $table->unsignedInteger('pareigos')->index();
+            $table->foreign('pareigos')->references('id')->on('pareigos');
             $table->string('vardas');
             $table->string('pavarde');
             $table->string('miestas');

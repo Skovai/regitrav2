@@ -16,21 +16,21 @@
                         <form method="post" action="{{action('AccountController@accountsPageCreate')}}">
                                 @csrf
                         <label for="suma">Suma(Eu)</label>
-                        <input id="suma"type="number" name="suma">
+                        <input id="suma"type="number" name="suma" required>
 
                         <label for="paskirtis">Paskirtis</label>
-                        <input id="paskirtis"type="text" name="paskirtis">
+                        <input id="paskirtis"type="text" name="paskirtis" required>
 
                         <label for="isdavimo_data">Išdavimo Data</label>
-                        <input id="isdavimo_data"type="date" name="isdavimo_data">
+                        <input id="isdavimo_data"type="date" name="isdavimo_data" required>
 
                         <label for="isdavimo_laikas">Išdavimo laikas</label>
-                        <input id="isdavimo_laikas"type="time" name="isdavimo_laikas">
+                        <input id="isdavimo_laikas"type="time" name="isdavimo_laikas" required>
 
                         <label for="terminas">Terminas</label>
-                        <input id="terminas"type="date" name="terminas">
+                        <input id="terminas"type="date" name="terminas" required>
                          
-                        <select name="FK_klientas">
+                        <select name="FK_klientas" required>
                         @foreach ($klientas as $key)
                         <option value="{{ $key->id }}">{{ $key->asmens_kodas }}|| {{ $key->vardas }} {{ $key->pavarde }}</option>
                         @endforeach

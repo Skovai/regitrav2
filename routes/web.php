@@ -67,6 +67,10 @@ Route::post('/clientEditing/update', 'ClientController@clientUpdate');
 
 // LVL 4
 Route::get('/employeeDataEditing', 'AccountController@employeeDataEditingPage');
+Route::get('/employeeDataEditing/select', 'EmployeeController@selectEmployee');
+Route::post('/employeeDataEditing/delete', 'EmployeeController@deleteEmployee');
+Route::post('/employeeDataEditing/update', 'EmployeeController@updateEmployee');
+Route::post('/employeeDataEditing/create', 'EmployeeController@createEmployee');
 Route::get('/employeeTimetable', 'AccountController@employeeTimetablePage');
 Route::get('/message', 'AccountController@messagePage');
 Route::get('/generatedMessage', 'AccountController@messagePage');

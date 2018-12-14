@@ -14,7 +14,7 @@ class DarbuotojasTableSeeder extends Seeder
     public function run()
     {
         darboutojas::create([
-            'pareigos' => 'Administratorius',
+            'pareigos' => 1,
             'vardas' => 'Admin',
             'pavarde' => 'Admin',
             'miestas' => 'Kaunas',

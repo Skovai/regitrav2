@@ -11,12 +11,19 @@
         <div class="panel-body">
             <form method="post" action="{{action('EmployeeController@inventoryCreate')}}">
                 @csrf
-                <label for="pavadinimas">pavadinimas</label>
-                <input id="pavadinimas"type="text" name="pavadinimas">
+                <label for="darbuotojas">Darbuotojas</label>
+                <select name="darbuotojas" id="darbuotojas">
+                    @foreach($darbuotojas as $key)
+                        <option value="{{$key->id}}">{{$key->asmens_kodas}} || {{$key->vardas}} {{$key->pavarde}}</option>
+                    @endforeach
+                </select>
 
-                <label for="serijos_numeris">serijos_numeris</label>
-                <input id="serijos_numeris"type="number" name="serijos_numeris">
-
+                <label for="inventorius">Inventorius</label>
+                <select name="inventorius" id="inventorius">
+                    @foreach($inventorius as $key)
+                        <option value="{{$key->id}}">{{$key->serijos_numeris}} || {{$key->pavadinimas}}</option>
+                    @endforeach
+                </select>
                 <button name="difficulty" class="btn btn-danger" style="width: 80px"
                         value="3" type="submit">
                     Patvirtinti
@@ -41,7 +48,7 @@
                 @foreach ($inventorius as $key)
                         <tr>
                             <td>{{ $key->pavadinimas }}</td>
-                            <td>{{ $key->serijos_numeris }}</td>
+                            <td>{{ DB::table('darbuotojas')->where('id', $key->darbuotojas_id)->select('vardas')->pluck('vardas')->first()}} {{ DB::table('darbuotojas')->where('id', $key->darbuotojas_id)->select('pavarde')->pluck('pavarde')->first()}}</td>
                         </tr>
                 @endforeach
                 </tbody>

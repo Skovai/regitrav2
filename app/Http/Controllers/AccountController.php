@@ -90,7 +90,9 @@ class AccountController extends Controller
     }
     public function employeeDataEditingPage()
     {
-        return view('employeeDataEditing');
+        $darbuotojas = Darbuotojas::all();
+        $klientas =  Klientas::all();
+        return view('employeeDataEditing',compact('darbuotojas','klientas'));
     }
     public function employeeTimetablePage()
     {
@@ -103,7 +105,8 @@ class AccountController extends Controller
     public function inventoryPage()
     {
         $inventorius = Inventorius::all();
-        return view('inventory',compact('inventorius'));
+        $darbuotojas = Darbuotojas::all();
+        return view('inventory',compact('inventorius','darbuotojas'));
     }
     public function messagePage()
     {
