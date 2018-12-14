@@ -32,15 +32,16 @@ class DriversLicenseController extends Controller
     {
 
       $id = Auth::user()->getAuthIdentifier();
+      $klientasid = DB::table('klientas')->where('FK_Pirisijungimo_id', $id)->select('id')->pluck('id')->first();
       $isdavimoData = $request->input('isdavimo_data');
       $galiojimoData = $request->input('galiojimo_data');
       $pnr = $request->input('pazymejimo_nr');
 
       $klientas = $request->input('FK_Klientas');
       DB::table('Vairuotojo_pazymejimas')->insert(
-          ['isdavimo_data' => $isdavimoData, 'galiojimo_data' => $galiojimoData, 'pazymejimo_nr' => $pnr, 'FK_klientas' => $id]
+          ['isdavimo_data' => $isdavimoData, 'galiojimo_data' => $galiojimoData, 'pazymejimo_nr' => $pnr, 'FK_klientas' => $klientasid]
       );
-      return view('driversLicense');
+      return view('driversLicense',compact('klientas', 'kategorijos'));
     }
 
     /**
@@ -55,9 +56,10 @@ class DriversLicenseController extends Controller
     }
     public function AddCategory(Request $request)
     {
-      $klientas = DB::table('klientas')->join('vairuotojo_pazymejimas', 'klientas.id', '=', 'vairuotojo_pazymejimas.FK_Klientas');
+      //$klientas = DB::table('klientas')->join('vairuotojo_pazymejimas', 'klientas.id', '=', 'vairuotojo_pazymejimas.FK_Klientas');
       $isdavimoData = $request->input('isdavimo_data');
-      $kategorijos = DB::table('kategorija');
+      $kategorijos = Kategorija::all();
+      $klientas = Kategorija::all();
       $kategorija = $request->input('kategorija');
       $FK_Vairuotojo_pazymejimas = $request->input('FK_Vairuotojo_pazymejimas');
 
@@ -106,7 +108,7 @@ class DriversLicenseController extends Controller
       DB::table('Vairuotojo_pazymejimas')->where('FK_Klientas', $klientasid)->update(
           ['isdavimo_data' => $isdavimoData, 'galiojimo_data' => $galiojimoData, 'pazymejimo_nr' => $pnr, 'FK_klientas' => $id]
       );
-      return view('driversLicense');
+      return view('driversLicense',compact('klientas', 'kategorijos'));
     }
 
     /**
@@ -120,6 +122,6 @@ class DriversLicenseController extends Controller
       $id = Auth::user()->getAuthIdentifier();
       $klientasid = DB::table('klientas')->where('FK_Pirisijungimo_id', $id)->select('id')->pluck('id')->first();
             DB::table('Vairuotojo_pazymejimas')->where('FK_Klientas', $klientasid)->delete();
-            return view('driversLicense');
+            return view('driversLicense',compact('klientas', 'kategorijos'));
     }
 }

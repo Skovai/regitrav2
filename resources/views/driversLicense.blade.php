@@ -62,7 +62,7 @@
                       @endforeach
                     </select>
 
-                    <label for="FK_Vairuotojo_pazymejimas">Kategorija</label>
+                    <label for="FK_Vairuotojo_pazymejimas">Klientas</label>
                     <select id="FK_Vairuotojo_pazymejimas" type="text" name="FK_Vairuotojo_pazymejimas">
                       @foreach($klientas as $key)
                       <option value="{{$key->id}}">{{$key->asmens_kodas}} || {{$key->vardas}} {{$key->pavarde}}</option>
