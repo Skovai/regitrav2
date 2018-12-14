@@ -129,10 +129,11 @@ class VehicleController extends Controller
     
     public function vehicleDeletePage(Request $request)
     {
+        $errorMessage = "";
         $id = $request->input('id');
         DB::table('transporto_priemone')->where('id', '=', $id)->delete();
         $transportoPriemone = TransportoPriemone::all();
-        return view('vehicle',compact('transportoPriemone'));
+        return view('vehicle',compact('transportoPriemone', 'errorMessage'));
     }
     
     public function vehicleChangeOwnerPage(Request $request)
