@@ -52,7 +52,9 @@
                                             <th>Suma</th>
                                             <th>Paskirtis</th>
                                             <th>Terminas</th>
+                                        @if(DB::table('darbuotojas')->where('FK_Pirisijungimo_id', '=', $id)->exists())
                                             <th>Atšaukti</th>
+                                            @endif
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -61,6 +63,7 @@
                                             <td>{{ $key->suma }}</td>
                                             <td>{{ $key->paskirtis }}</td>
                                             <td>{{ $key->terminas }}</td>
+                                        @if(DB::table('darbuotojas')->where('FK_Pirisijungimo_id', '=', $id)->exists())
                                             <form method="post" action="{{action('AccountController@accountsPageDelete')}}">
                                                     @csrf
                                                     <td>
@@ -71,6 +74,7 @@
                                                             </button>
                                                     </td>
                                             </form>
+                                            @endif
                                     </tr>
                                     @endforeach
                                     </tbody>
